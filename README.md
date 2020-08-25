@@ -1,2 +1,3 @@
 # e-commerce-Laravel-React
-ecommerce using laravel for backend and react react-redux for 
+
+In this project i'm using laravel for backend and react react-redux to create e-commerce
