@@ -1,4 +1,4 @@
-import { LOGIN, CHECK_LOGIN } from '../actions/types';
+import { LOGIN, CHECK_LOGIN, REGISTER } from '../actions/types';
 const initialState = {
   token: null,
   isAuthenticated: false,
@@ -8,6 +8,16 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
+      console.log(action.payload.user);
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('userStore', JSON.stringify(action.payload.user));
+      return {
+        ...state,
+        token: action.payload.token,
+        user: action.payload.user,
+        isAuthenticated: true,
+      };
+    case REGISTER:
       console.log(action.payload.user);
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('userStore', JSON.stringify(action.payload.user));

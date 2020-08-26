@@ -1,7 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { register } from '../../actions/authAction';
+import { Link } from 'react-router-dom';
 
-const Register = () => {
-  return <h1>Register Page</h1>;
+const Register = ({ register }) => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+  const onChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      console.log('passwords do not match');
+    } else {
+      const formData = {
+        name,
+        email,
+        password,
+      };
+      register(formData);
+    }
+  };
+
+  const { email, password, name, password2 } = user;
+  return (
+    <div className='login-screen'>
+      <section className='login-info'>
+        <h1>Welcome to ElectronStore</h1>
+        <p>Here you can find all smart products </p>
+      </section>
+      <section className='login-form'>
+        <h1>Register</h1>
+        <form onSubmit={onSubmit}>
+          <div className='form-controll'>
+            <label htmlFor='usernamme'>User Name</label>
+            <input type='text' name='name' value={name} onChange={onChange} />
+          </div>
+          <div className='form-controll'>
+            <label htmlFor='email'>Email </label>
+            <input
+              type='email'
+              name='email'
+              value={email}
+              onChange={onChange}
+            />
+          </div>
+          <div className='form-controll'>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              name='password'
+              value={password}
+              onChange={onChange}
+            />
+          </div>
+          <div className='form-controll'>
+            <label htmlFor='confirm-password'>Confirme Password</label>
+            <input
+              type='password'
+              name='password2'
+              value={password2}
+              onChange={onChange}
+            />
+          </div>
+          <input
+            type='submit'
+            value='Register'
+            className='btn btn-primary btn-block'
+          />
+        </form>
+        <center>
+          <Link to='/login' className='registerLink'>
+            Already have account
+          </Link>
+        </center>
+      </section>
+    </div>
+  );
 };
 
-export default Register;
+export default connect(null, { register })(Register);
