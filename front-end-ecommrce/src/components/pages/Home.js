@@ -1,9 +1,14 @@
 import React from 'react';
+import NewProducts from '../homePage/NewProducts';
+import MostOrderd from '../homePage/MostOrderd';
+import HighPromoted from '../homePage/HighPromoted';
 
 const Home = () => {
   return (
     <div>
-      <h1>Home Page</h1>
+      <NewProducts />
+      <MostOrderd />
+      <HighPromoted />
     </div>
   );
 };

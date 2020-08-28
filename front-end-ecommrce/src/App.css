@@ -152,3 +152,41 @@ a {
 .registerLink {
   margin-top: 2rem;
 }
+
+/* Home Page new products */
+.ProductsSection {
+  display: flex;
+}
+.container h1 {
+  font-size: x-large;
+  margin: 15px 0;
+}
+.productItem {
+  width: 199px;
+  padding: 2px 5px;
+  margin: 5px;
+  border: 1px solid rgb(196, 192, 192);
+  border-radius: 5px;
+}
+.productItem:hover {
+  box-shadow: 5px 10px 5px #c5c4c4;
+}
+.productItem:hover img {
+  transform: translateY(-20px);
+}
+.productItem img {
+  width: 100%;
+}
+.productItem .proTitle {
+  font-size: larger;
+  height: 44px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+.productItem .proPrice {
+  font-size: larger;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  color: #ff3232;
+}

@@ -28,35 +28,40 @@ class UserController extends Controller
 
         return response($response, 201);
     }
+
     function register(Request $request)
     {
-        // return $request;
-        $request->validate([
-            'name' => 'required|string|min:8|max:255',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|string|min:8'
-        ]);
-        // return $request;
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        // print_r($data);
-        if (!$user) {
-            return response([
-                'message' => ['Email already taken please enter another email ']
-            ], 404);
-        }
+        try {
+            // return $request;
+            $request->validate([
+                'name' => 'required|string|min:8|max:255',
+                'email' => 'required|unique:users,email',
+                'password' => 'required|string|min:8'
+            ]);
+            // return $request;
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            // print_r($data);
+            if (!$user) {
+                return response([
+                    'message' => ['Email already taken please enter another email ']
+                ], 404);
+            }
 
-        $token = $user->createToken('my-app-token')->plainTextToken;
+            $token = $user->createToken('my-app-token')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
 
-        return response($response, 201);
+            return response($response, 201);
+        } catch (\Throwable $th) {
+            return 'Email already taken try with another one';
+        };
     }
     function users()
     {
