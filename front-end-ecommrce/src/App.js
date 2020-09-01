@@ -10,6 +10,7 @@ import Home from './components/pages/Home';
 import Navbar from './components/layouts/Navbar';
 // import Footer from './components/layouts/Footer';
 import './App.css';
+import CartPage from './components/pages/CartPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/cart' exact component={CartPage} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
         </Switch>

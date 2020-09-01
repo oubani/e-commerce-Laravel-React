@@ -4,7 +4,11 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { checkLogin } from '../../actions/authAction';
 
-const Navbar = ({ auth: { user, isAuthenticated }, checkLogin }) => {
+const Navbar = ({
+  auth: { user, isAuthenticated },
+  cart: { cart },
+  checkLogin,
+}) => {
   useEffect(() => {
     checkLogin();
     //
@@ -36,7 +40,7 @@ const Navbar = ({ auth: { user, isAuthenticated }, checkLogin }) => {
             <li>
               <Link to='/cart'>
                 <FaShoppingCart className='cart-icon' />
-                <span className='badge'>6</span>
+                <span className='badge'>{cart.length} </span>
               </Link>
             </li>
             {user !== null ? (
@@ -61,5 +65,6 @@ const Navbar = ({ auth: { user, isAuthenticated }, checkLogin }) => {
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  cart: state.cart,
 });
 export default connect(mapStateToProps, { checkLogin })(Navbar);

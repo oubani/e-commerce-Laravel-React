@@ -37,6 +37,16 @@ a {
   width: 1140px;
   margin: 0 auto;
 }
+.clickedIcon {
+  cursor: pointer;
+}
+.clickedIcon:active {
+  box-shadow: 0 5px var(--main-red-color);
+  font-size: x-large;
+  z-index: 1;
+  transform: translateY(4px);
+}
+
 /* navbar */
 .navbar {
   background-color: var(--main-blue-color);
@@ -189,4 +199,13 @@ a {
   justify-content: space-between;
   margin: 10px 0;
   color: #ff3232;
+}
+
+/* Cart Page */
+table {
+  width: 75%;
+  padding: 5px;
+  background: var(--main-blue-color);
+  margin-top: 30px;
+  border: none;
 }
