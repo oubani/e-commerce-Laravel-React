@@ -21,9 +21,7 @@ const Navbar = ({
           <div className='search-zone'>
             <form>
               <select name='categorie'>
-                <option value='none' disabled selected>
-                  All
-                </option>
+                <option value='none'>All</option>
                 <option value='Smart Phone'>Smart Phone</option>
                 <option value='Laptops'>Laptops</option>
                 <option value='Headphones'>Laptops</option>

@@ -7,13 +7,13 @@ import { addToCart } from '../../actions/cartAction';
 const ProductItem = ({ product, addToCart }) => {
   const { id, name, prix, thumbnail } = product;
 
-  const addClick = ({ product }) => {
+  const addClick = ({ product }, qte = 1) => {
     const newProduct = {
       id,
       name,
       prix,
       thumbnail,
-      quantity: null,
+      quantity: qte,
     };
     addToCart(1, newProduct);
     // console.log(newProduct);

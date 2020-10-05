@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import CartItem from '../cart/CartItem';
 const CartPage = ({ cart: { cart } }) => {
   return (
     <div className='container'>
@@ -16,16 +16,8 @@ const CartPage = ({ cart: { cart } }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>img</td>
-            <td>Huawei y7 prime 2019</td>
-            <td>9</td>
-            <td>1000 Dh</td>
-            <td>9000 Dh</td>
-            <td>delete</td>
-          </tr>
           {cart.map((item) => (
-            <h1>{item.name}</h1>
+            <CartItem item={item} key={item.id} />
           ))}
         </tbody>
       </table>
