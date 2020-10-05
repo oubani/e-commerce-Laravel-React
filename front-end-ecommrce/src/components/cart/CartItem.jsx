@@ -1,33 +1,62 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
+import {
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+} from '../../actions/cartAction';
 
-const CartItem = ({ item: { thumbnail, name, quantity, prix } }) => {
+const CartItem = ({
+  item: { id, thumbnail, name, quantity, prix },
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+}) => {
+  const increment = (id) => {
+    incrementItem(id);
+  };
+  const decrement = (id) => {
+    console.log('decrement =', id);
+    decrementItem(id);
+  };
   return (
     <tr>
       <td>
-        <img src={thumbnail} alt='' srcset='' />
+        <img src={thumbnail} />
       </td>
       <td>{name}</td>
       <td>
         <div>
-          <FaPlusCircle className='icon' />
+          <FaPlusCircle
+            className='icon'
+            onClick={() => {
+              increment(id);
+            }}
+          />
         </div>
         <div>{quantity}</div>
         <div>
-          <FaMinusCircle className='icon' />
+          <FaMinusCircle className='icon' onClick={() => decrement(id)} />
         </div>
       </td>
       <td>
-        {prix} <span>Dh</span>
+        {prix} <b>Dh</b>
       </td>
       <td>
-        {prix * quantity} <span> Dh </span>
+        {prix * quantity} <b> Dh </b>
       </td>
       <td>
-        <FaTrashAlt className='icon' style={{ width: '2rem' }} />
+        <FaTrashAlt
+          className='icon'
+          style={{ width: '2rem' }}
+          onClick={() => removeFromCart(id)}
+        />
       </td>
     </tr>
   );
 };
 
-export default CartItem;
+export default connect(null, { removeFromCart, incrementItem, decrementItem })(
+  CartItem
+);

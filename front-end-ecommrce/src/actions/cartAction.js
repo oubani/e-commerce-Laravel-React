@@ -3,6 +3,8 @@ import {
   UPDATE_CART,
   REMOVE_FROM_CART,
   EMPTY_CART,
+  INCREMENT_ITEM,
+  DECREMENT_ITEM,
 } from './types';
 
 export const addToCart = (quantity, item) => (dispatch) => {
@@ -18,9 +20,21 @@ export const updateCart = (quantity, item) => (dispatch) => {
   });
 };
 
-export const removeFromCart = (id = (dispatch) => {
+export const removeFromCart = (id) => (dispatch) => {
   dispatch({
     type: REMOVE_FROM_CART,
-    payload: id,
+    payload: { id: id },
   });
-});
+};
+export const incrementItem = (id) => (dispatch) => {
+  dispatch({
+    type: INCREMENT_ITEM,
+    payload: { id: id },
+  });
+};
+export const decrementItem = (id) => (dispatch) => {
+  dispatch({
+    type: DECREMENT_ITEM,
+    payload: { id: id },
+  });
+};

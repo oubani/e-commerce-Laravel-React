@@ -17,7 +17,9 @@ const Navbar = ({
     <div className='navbar'>
       <div className='container'>
         <div className='nav'>
-          <h1>Electron Store</h1>
+          <h1>
+            Elecrto<span>Store</span>
+          </h1>
           <div className='search-zone'>
             <form>
               <select name='categorie'>
