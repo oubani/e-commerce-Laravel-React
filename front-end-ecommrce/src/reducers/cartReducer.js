@@ -69,12 +69,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.map((item) => {
-          item.id === action.payload.id ? {item.quantity++} : item;
-          // if (item.id === action.payload.id) {
-          //   item.quantity++;
-          //   return item;
-          // }
-          // return item;
+          // item.id === action.payload.id ? {item.quantity++} : item;
+          if (item.id === action.payload.id) {
+            item.quantity++;
+            return item;
+          }
+          return item;
         }),
       };
     case DECREMENT_ITEM:

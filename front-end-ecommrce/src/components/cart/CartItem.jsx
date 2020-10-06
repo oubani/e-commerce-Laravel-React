@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import {
@@ -37,7 +37,11 @@ const CartItem = ({
         </div>
         <div>{quantity}</div>
         <div>
-          <FaMinusCircle className='icon' onClick={() => decrement(id)} />
+          <FaMinusCircle
+            className='icon'
+            disable={quantity.length == 0}
+            onClick={() => quantity > 0 && decrement(id)}
+          />
         </div>
       </td>
       <td>
