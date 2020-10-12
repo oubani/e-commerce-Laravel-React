@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
+import { FaTrashAlt, FaPlusCircle, FaMinusCircle, FaFontAwesomeLogoFull } from 'react-icons/fa';
 import {
   removeFromCart,
   incrementItem,
@@ -14,6 +14,7 @@ const CartItem = ({
   decrementItem,
 }) => {
   const increment = (id) => {
+    console.log(quantity);
     incrementItem(id);
   };
   const decrement = (id) => {
