@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FaTrashAlt, FaPlusCircle, FaMinusCircle, FaFontAwesomeLogoFull } from 'react-icons/fa';
+import { FaTrashAlt, FaPlusCircle, FaMinusCircle, FaRemoveFormat, FaFontAwesomeLogoFull } from 'react-icons/fa';
 
 
 const CartItem = ({

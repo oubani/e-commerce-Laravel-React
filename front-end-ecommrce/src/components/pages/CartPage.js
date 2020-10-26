@@ -7,7 +7,7 @@ import {
   decrementItem,
   emptyCart
 } from '../../actions/cartAction';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 const CartPage = ({ 
   cart: { cart },
@@ -57,17 +57,25 @@ const CartPage = ({
           <tr>
             <td style={{textAlign:'left'}} colSpan='4' > Total</td>
             <td  > {total} Dh </td>
-            <td> Empty Cart <FaTrashAlt
-          className='icon'
-
-          style={{ width: '2rem',color:'red' }}
-          onClick={handleEmpty}
-        /> </td>
+            <td> 
+              <div style={ButtonStyle} onClick={handleEmpty}  >
+                Empty Cart 
+                <FaRegTrashAlt style={{marginLeft:'1.5rem'}} />
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   );
+};
+
+const ButtonStyle = {
+  color: 'white',
+  backgroundColor:'#ff3232',
+  paddingTop:'0.5rem',
+  paddingBottom:'0.5rem',
+  borderRadius:'5px',
 };
 
 const mapStateToProps = (state) => ({
