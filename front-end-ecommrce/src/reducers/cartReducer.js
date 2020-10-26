@@ -1,4 +1,3 @@
-import { removeFromCart } from '../actions/cartAction';
 import {
   ADD_TO_CART,
   UPDATE_CART,
@@ -65,11 +64,9 @@ export default (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== action.payload.id),
       };
     case INCREMENT_ITEM:
-      // console.log(`increment item------ :${action.payload.id}`);
       return {
         ...state,
         cart: state.cart.map((item) => {
-          // item.id === action.payload.id ? {item.quantity++} : item;
           if (item.id === action.payload.id) {
             item.quantity++;
             return item;
@@ -78,7 +75,6 @@ export default (state = initialState, action) => {
         }),
       };
     case DECREMENT_ITEM:
-      console.log(`increment item :${action.payload.id}`);
       return {
         ...state,
         cart: [
@@ -89,6 +85,11 @@ export default (state = initialState, action) => {
             } else return item;
           }),
         ],
+      };
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart : state.cart.splice()
       };
     default:
       return state;

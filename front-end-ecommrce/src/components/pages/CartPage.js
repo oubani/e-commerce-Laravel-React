@@ -5,16 +5,19 @@ import {
   removeFromCart,
   incrementItem,
   decrementItem,
+  emptyCart
 } from '../../actions/cartAction';
+import { FaTrashAlt } from 'react-icons/fa';
+
 const CartPage = ({ 
   cart: { cart },
   removeFromCart,
   incrementItem,
+  emptyCart,
   decrementItem }) => {
 
     const increment = (id) => {
       incrementItem(id);
-      // console.log(' cartPage incr '+id);
     };
     const decrement = (id) => {
       decrementItem(id);
@@ -27,6 +30,13 @@ const CartPage = ({
       </h1>
     );
   }
+
+  let total ;
+  total=0;
+  cart.forEach(element => {
+    total += element.prix * element.quantity
+  });
+  const handleEmpty = () => emptyCart()  ;
   return (
     <div className='container'>
       <table className='table'>
@@ -44,6 +54,16 @@ const CartPage = ({
           {cart.map((item) => (
             <CartItem item={item} key={item.id} increment={increment} removeFromCart={removeFromCart} decrement={decrement} />
           ))}
+          <tr>
+            <td style={{textAlign:'left'}} colSpan='4' > Total</td>
+            <td  > {total} Dh </td>
+            <td> Empty Cart <FaTrashAlt
+          className='icon'
+
+          style={{ width: '2rem',color:'red' }}
+          onClick={handleEmpty}
+        /> </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -54,4 +74,4 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps,{ removeFromCart, incrementItem, decrementItem } )(CartPage);
+export default connect(mapStateToProps,{ removeFromCart, incrementItem, decrementItem,emptyCart } )(CartPage);

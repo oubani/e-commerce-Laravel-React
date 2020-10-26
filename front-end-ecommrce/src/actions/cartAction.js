@@ -38,3 +38,10 @@ export const decrementItem = (id) => (dispatch) => {
     payload: { id: id },
   });
 };
+
+export const emptyCart = (id) => (dispatch) => {
+  dispatch({
+    type: EMPTY_CART,
+    payload:null
+  });
+}
