@@ -14,6 +14,8 @@ class ProductController extends Controller
      */
     public function newProducts()
     {
+        // get new products
+
         try {
             $products = Product::all()->take(3);
             return $products;
