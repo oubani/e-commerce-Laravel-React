@@ -1,26 +1,16 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import { FaTrashAlt, FaPlusCircle, FaMinusCircle, FaFontAwesomeLogoFull } from 'react-icons/fa';
-import {
-  removeFromCart,
-  incrementItem,
-  decrementItem,
-} from '../../actions/cartAction';
+
 
 const CartItem = ({
-  item: { id, thumbnail, name, quantity, prix },
+  increment,
+  decrement,
   removeFromCart,
-  incrementItem,
-  decrementItem,
+  item: { id, thumbnail, name, quantity, prix }
 }) => {
-  const increment = (id) => {
-    console.log(quantity);
-    incrementItem(id);
-  };
-  const decrement = (id) => {
-    console.log('decrement =', id);
-    decrementItem(id);
-  };
+  if (quantity == 0) {
+    removeFromCart(id);
+  }
   return (
     <tr>
       <td>
@@ -28,12 +18,10 @@ const CartItem = ({
       </td>
       <td>{name}</td>
       <td>
-        <div>
+        <div  >
           <FaPlusCircle
             className='icon'
-            onClick={() => {
-              increment(id);
-            }}
+            onClick={() => { increment(id) }}
           />
         </div>
         <div>{quantity}</div>
@@ -62,6 +50,4 @@ const CartItem = ({
   );
 };
 
-export default connect(null, { removeFromCart, incrementItem, decrementItem })(
-  CartItem
-);
+export default CartItem;

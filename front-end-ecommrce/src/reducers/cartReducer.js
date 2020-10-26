@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== action.payload.id),
       };
     case INCREMENT_ITEM:
-      console.log(`increment item------ :${action.payload.id}`);
+      // console.log(`increment item------ :${action.payload.id}`);
       return {
         ...state,
         cart: state.cart.map((item) => {

@@ -1,7 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CartItem from '../cart/CartItem';
-const CartPage = ({ cart: { cart } }) => {
+import {
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+} from '../../actions/cartAction';
+const CartPage = ({ 
+  cart: { cart },
+  removeFromCart,
+  incrementItem,
+  decrementItem }) => {
+
+    const increment = (id) => {
+      incrementItem(id);
+      // console.log(' cartPage incr '+id);
+    };
+    const decrement = (id) => {
+      decrementItem(id);
+    };
+
   if (cart.length === 0) {
     return (
       <h1 style={{ marginTop: '2rem', textAlign: 'center' }}>
@@ -24,7 +42,7 @@ const CartPage = ({ cart: { cart } }) => {
         </thead>
         <tbody>
           {cart.map((item) => (
-            <CartItem item={item} key={item.id} />
+            <CartItem item={item} key={item.id} increment={increment} removeFromCart={removeFromCart} decrement={decrement} />
           ))}
         </tbody>
       </table>
@@ -36,4 +54,4 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps, null)(CartPage);
+export default connect(mapStateToProps,{ removeFromCart, incrementItem, decrementItem } )(CartPage);
