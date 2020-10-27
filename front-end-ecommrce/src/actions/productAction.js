@@ -54,3 +54,12 @@ export const getMostOrderd = () => async (dispatch) => {
     // });
   }
 };
+
+// Get one product to showProduct 
+export const getProduct = (id) => async (dispatch) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}

@@ -83,8 +83,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,{ removeFromCart, incrementItem, decrementItem,emptyCart } )(CartPage);
-
-/**
- * add redirect to page 
- * buidl tets
- */
