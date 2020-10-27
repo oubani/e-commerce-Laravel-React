@@ -58,7 +58,7 @@ export const getMostOrderd = () => async (dispatch) => {
 // Get one product to showProduct 
 export const getProduct = (id) => async (dispatch) => {
   try {
-    
+    const res  = await axios.get(`${link}/product/${id}`);
   } catch (error) {
     
   }
