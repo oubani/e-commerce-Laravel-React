@@ -11,6 +11,7 @@ import Navbar from './components/layouts/Navbar';
 // import Footer from './components/layouts/Footer';
 import './App.css';
 import CartPage from './components/pages/CartPage';
+import ProductPage from './components/pages/ProductPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/cart' exact component={CartPage} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
+          <Route path='/product/:id' component={ProductPage} />
         </Switch>
         {/* <Footer /> */}
       </Router>
