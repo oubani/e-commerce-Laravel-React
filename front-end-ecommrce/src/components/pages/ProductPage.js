@@ -1,13 +1,21 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
+import connect from 'react-redux';
 
 const ProductPage = (props) => {
-    const  handle = props.match.params.id;
-    
+    const  id = props.match.params.id;
+        
+
     return (
-        <div>
-            <p>Produit {handle} </p>
+        <div className='container '>
+            <div className="productSection">
+                <div className="pImages"></div>
+                <div className="pDesc"></div>
+            </div>
+            <div className="productsSemillar">
+
+            </div>
         </div>
     )
 }
 
-export default ProductPage;
+export default connect(mapPrrops,{showProduct})(ProductPage);

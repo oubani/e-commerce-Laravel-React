@@ -23,3 +23,4 @@ Route::get('products/new', 'ProductController@newProducts');
 Route::get('products/high', 'ProductController@highPromotion'); // i'll fixed it later
 Route::get('products/mostOrdered', 'ProductController@mostOrderd'); // i'll fixed it later
 Route::get('/products', 'ProductController@index'); // i'll fixed it later
+Route::get('/product/{id}', 'ProductController@show'); // i'll fixed it later

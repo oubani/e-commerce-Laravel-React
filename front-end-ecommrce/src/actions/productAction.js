@@ -1,8 +1,8 @@
 import {
   GETHIGHPROMOTION,
   GETMOSTORDERED,
-  GETNEWPRODUGETNEWPRODUCTS,
   GETNEWPRODUCTS,
+  SHOWPRODUCT
 } from './types';
 import axios from 'axios';
 
@@ -28,7 +28,7 @@ export const getHighPromotion = () => async (dispatch) => {
   try {
     const res = await axios.get(`${link}/products/high`);
     dispatch({
-      type: GETNEWPRODUCTS,
+      type: GETHIGHPROMOTION,
       payload: res.data,
     });
   } catch (err) {
@@ -56,9 +56,13 @@ export const getMostOrderd = () => async (dispatch) => {
 };
 
 // Get one product to showProduct 
-export const getProduct = (id) => async (dispatch) => {
+export const showProduct = (id) => async (dispatch) => {
   try {
     const res  = await axios.get(`${link}/product/${id}`);
+    dispatch({
+      type:SHOWPRODUCT,
+      payload:res.data
+    })
   } catch (error) {
     
   }
