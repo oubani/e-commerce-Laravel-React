@@ -1,9 +1,12 @@
 import React ,{useEffect} from 'react'
-import connect from 'react-redux';
+import axios from 'axios';
 
 const ProductPage = (props) => {
     const  id = props.match.params.id;
+
+    useEffect(() => {
         
+    },[])
 
     return (
         <div className='container '>
