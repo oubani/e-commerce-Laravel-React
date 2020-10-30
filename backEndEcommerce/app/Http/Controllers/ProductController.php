@@ -17,7 +17,7 @@ class ProductController extends Controller
         // get new products
 
         try {
-            $products = Product::all()->take(3);
+            $products = Product::orderBy('id', 'desc')->take(5)->get();
             return $products;
         } catch (\Throwable $th) {
             return 'No product';
@@ -81,10 +81,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $data = [];
         try {
             $product = Product::findorFail($id);
+            $data['product'] = $product;
+            $data['images'] = $product->images;
+            return $data;
         } catch (\Throwable $th) {
-            //throw $th;
+            return $th;
         }
     }
 

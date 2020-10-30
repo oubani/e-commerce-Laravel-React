@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { FaTrashAlt, FaPlusCircle, FaMinusCircle, FaRemoveFormat, FaFontAwesomeLogoFull } from 'react-icons/fa';
+import React from 'react';
+import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 
 
 const CartItem = ({
@@ -14,7 +14,7 @@ const CartItem = ({
   return (
     <tr>
       <td>
-        <img src={thumbnail} />
+        <img src={`http://localhost:8000/images/${thumbnail}`} />
       </td>
       <td>{name}</td>
       <td>
@@ -28,7 +28,7 @@ const CartItem = ({
         <div>
           <FaMinusCircle
             className='icon'
-            disable={quantity.length == 0}
+            disable={quantity.length === 0}
             onClick={() => quantity > 0 && decrement(id)}
           />
         </div>

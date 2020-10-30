@@ -21,7 +21,7 @@ const ProductItem = ({ product, addToCart }) => {
 
   return (
     <div className='productItem'>
-      <img src={thumbnail} alt={name} className='imgProduct' />
+      <img src={`http://localhost:8000/images/${thumbnail}`} alt={name} className='imgProduct' />
       <p className='proTitle'>{name}</p>
       <p> {prix} Dh</p>
       <div className='proPrice'>

@@ -9,14 +9,7 @@ import {
 
 const initialState = {
   cart: [
-    {
-      id: 3,
-      name: 'canon z800 camera ',
-      prix: 10000,
-      thumbnail:
-        'https://cdn.shopify.com/s/files/1/0070/7032/files/camera_56f176e3-ad83-4ff8-82d8-d53d71b6e0fe.jpg?v=1527089512',
-      quantity: 1,
-    },
+    
   ],
 };
 const alreadyExisit = (id, cart) => {
