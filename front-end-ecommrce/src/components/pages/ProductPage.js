@@ -1,12 +1,13 @@
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react';
+import axios from 'axios';
 
 const ProductPage = (props) => {
     const [product, setProduct] = useState({});
     const  id = props.match.params.id;
     
-    /*const getProduct = async (id) =>  {
+    const getProduct = async (id) =>  {
         try {
-            const res = await axios.get(`http://localhost:8000/product/${id}`);
+            const res = await axios.get(`http://cors-anywhere.herokuapp.com/:http://localhost:8000/product/${id}`);
             setProduct(res.data);
         } catch (error) {
             console.log(error);
@@ -16,7 +17,7 @@ const ProductPage = (props) => {
     useEffect(() => {
         getProduct(id);
     }, [])
-    */
+    
     return (
         <div className='container '>
             <div className="productSection">
