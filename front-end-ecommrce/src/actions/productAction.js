@@ -55,3 +55,11 @@ export const getMostOrderd = () => async (dispatch) => {
   }
 };
 
+export const  getProduct = async (id) =>  {
+  try {
+      const res = await axios.get(`http://localhost:8000/api/product/${id}`);
+      return res;
+  } catch (error) {
+      console.log(error);
+  }
+}

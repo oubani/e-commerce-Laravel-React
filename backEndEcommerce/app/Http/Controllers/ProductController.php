@@ -84,7 +84,7 @@ class ProductController extends Controller
         $data = [];
         try {
             $product = Product::findorFail($id);
-            $data['product'] = $product;
+            $data['productInfo'] = $product;
             $data['images'] = $product->images;
             return $data;
         } catch (\Throwable $th) {

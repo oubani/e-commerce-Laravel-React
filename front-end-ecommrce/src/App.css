@@ -52,6 +52,9 @@ a {
   margin: 5px auto;
   font-size: 25px;
 }
+.my-2 {
+  margin: 2rem auto;
+}
 /* navbar */
 .navbar {
   background-color: var(--main-blue-color);
