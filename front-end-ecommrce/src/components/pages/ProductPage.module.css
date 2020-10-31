@@ -23,3 +23,25 @@
   margin-left: 1rem;
   font-size: 1.5rem;
 }
+.pImages {
+  display: flex;
+
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
+.imagesSection {
+  flex: 1;
+}
+.primaryImage {
+  flex: 4;
+}
+/* .simage {
+  width: 10%;
+} */
+.sImag {
+  width: 100%;
+  border: rgba(0, 0, 0, 0.7) 1px solid;
+  padding: 5px;
+}

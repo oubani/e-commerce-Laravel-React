@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { FaPlusCircle, FaMinusCircle, FaCartPlus } from 'react-icons/fa';
 import { getProduct } from '../../actions/productAction';
 import { addToCart } from '../../actions/cartAction';
 import style from './ProductPage.module.css';
 
-const ProductPage = (props) => {
+const ProductPage = ({ addToCart }) => {
   // State
   const [product, setProduct] = useState(null);
+  const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1);
 
   // get the product id
-  const id = props.match.params.id;
-
+  //   const id = props.match.params.id;
+  const id = 1;
   // add item to cart function
   const addItem = (productInfo) => {
-    console.log('product Clicked');
     if (quantity > 0) {
       const item = {
         id: productInfo.id,
         name: productInfo.name,
         thumbnail: productInfo.thumbnail,
+        prix: productInfo.prix,
+        quantity,
       };
       console.log(quantity, item);
       addToCart(quantity, item);
@@ -33,7 +36,10 @@ const ProductPage = (props) => {
   }, []);
 
   if (product) {
+    // distract data
     const { productInfo, images } = product;
+
+    // distruct styles
     const {
       productSection,
       pImages,
@@ -43,21 +49,38 @@ const ProductPage = (props) => {
       stock,
       header,
       Pprice,
+      sImag,
+      pImag,
+      imagesSection,
+      primaryImage,
     } = style;
+
     return (
       <div className='container my-2'>
         <div className={productSection}>
           <div className={pImages}>
-            {images.map((img) => (
-              <p> {img.thumbnail} </p>
-            ))}
+            <div className={imagesSection}>
+              {images.map((image) => (
+                <img
+                  key={image.id}
+                  src={`http://localhost:8000/images/${image.thumbnail}`}
+                  className={sImag}
+                />
+              ))}
+            </div>
+            <div className={primaryImage}>
+              <img
+                key={image.id}
+                src={`http://localhost:8000/images/${productInfo.thumbnail}`}
+                className={pImag}
+              />
+            </div>
           </div>
           <div className={pDesc}>
             <h1 className={header}>{productInfo.name}</h1>
             <p className={description}>{productInfo.description}</p>
             <p className={Pprice}>
-              {' '}
-              prix : <span className={price}> {productInfo.prix} Dh</span>{' '}
+              prix : <span className={price}> {productInfo.prix} Dh</span>
             </p>
             <p className={stock}> en Stock : {productInfo.stock}</p>
             <div
@@ -124,4 +147,4 @@ const btnStyle = {
   justifyContent: 'center',
 };
 
-export default ProductPage;
+export default connect(null, { addToCart })(ProductPage);
