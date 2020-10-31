@@ -28,7 +28,6 @@ const CartItem = ({
         <div>
           <FaMinusCircle
             className='icon'
-            disable={quantity.length === 0}
             onClick={() => quantity > 0 && decrement(id)}
           />
         </div>

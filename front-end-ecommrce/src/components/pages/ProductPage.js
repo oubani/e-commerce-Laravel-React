@@ -4,16 +4,17 @@ import { FaPlusCircle, FaMinusCircle, FaCartPlus } from 'react-icons/fa';
 import { getProduct } from '../../actions/productAction';
 import { addToCart } from '../../actions/cartAction';
 import style from './ProductPage.module.css';
-
-const ProductPage = ({ addToCart }) => {
+//
+const ProductPage = ({ addToCart, match }) => {
+  //console.log(props);
   // State
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1);
 
   // get the product id
-  //   const id = props.match.params.id;
-  const id = 1;
+  const id = match.params.id;
+
   // add item to cart function
   const addItem = (productInfo) => {
     if (quantity > 0) {
@@ -24,17 +25,27 @@ const ProductPage = ({ addToCart }) => {
         prix: productInfo.prix,
         quantity,
       };
-      console.log(quantity, item);
+      //console.log(quantity, item);
       addToCart(quantity, item);
     } else {
       console.log('product not added');
     }
   };
-  useEffect(async () => {
-    const response = await getProduct(id);
-    setProduct(response.data);
-  }, []);
+  // useEffect(async () => {
+  //   const response = await getProduct(id);
+  //   setProduct(response.data);
+  // }, []);
 
+  useEffect(() => {
+    async function fetchData(id) {
+      // You can await here
+      const response = await getProduct(id);
+      // ...
+      setProduct(response.data);
+    }
+    fetchData(id);
+  }, []);
+  console.log(product);
   if (product) {
     // distract data
     const { productInfo, images } = product;
@@ -111,7 +122,6 @@ const ProductPage = ({ addToCart }) => {
                 <div>
                   <FaMinusCircle
                     className='icon'
-                    disable={quantity.length === 0}
                     onClick={() => {
                       if (quantity > 0) setQuantity(quantity - 1);
                     }}

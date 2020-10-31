@@ -37,6 +37,9 @@ const Navbar = ({
               <Link to='/'> Products</Link>
             </li>
             <li>
+              <Link to='/product/1'> Product 1</Link>
+            </li>
+            <li>
               <Link to='/cart'>
                 <FaShoppingCart className='cart-icon' />
                 <span className='badge'>{cart.length} </span>
