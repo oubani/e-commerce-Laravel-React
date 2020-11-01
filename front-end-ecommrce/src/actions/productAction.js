@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 
 const link = 'http://localhost:8000/api';
+
 // get new  products
 export const getNewProducts = () => async (dispatch) => {
   try {
@@ -17,10 +18,6 @@ export const getNewProducts = () => async (dispatch) => {
     });
   } catch (err) {
     console.log(err);
-    // dispatch({
-    //   type: LOGS_ERROR,
-    //   payload: err.response.statusText,
-    // });
   }
 };
 // get the high ptomoted products
@@ -33,10 +30,6 @@ export const getHighPromotion = () => async (dispatch) => {
     });
   } catch (err) {
     console.log(err);
-    // dispatch({
-    //   type: LOGS_ERROR,
-    //   payload: err.response.statusText,
-    // });
   }
 };
 export const getMostOrderd = () => async (dispatch) => {
@@ -48,10 +41,6 @@ export const getMostOrderd = () => async (dispatch) => {
     });
   } catch (err) {
     console.log(err);
-    // dispatch({
-    //   type: LOGS_ERROR,
-    //   payload: err.response.statusText,
-    // });
   }
 };
 

@@ -4,6 +4,8 @@ import { FaPlusCircle, FaMinusCircle, FaCartPlus } from 'react-icons/fa';
 import { getProduct } from '../../actions/productAction';
 import { addToCart } from '../../actions/cartAction';
 import style from './ProductPage.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //
 const ProductPage = ({ addToCart, match }) => {
   //console.log(props);
@@ -11,7 +13,7 @@ const ProductPage = ({ addToCart, match }) => {
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-
+  const notify = () => toast('Wow so easy !');
   // get the product id
   const id = match.params.id;
 
@@ -27,14 +29,12 @@ const ProductPage = ({ addToCart, match }) => {
       };
       //console.log(quantity, item);
       addToCart(quantity, item);
+      toast.success('Item added to cart ');
+      setQuantity(0);
     } else {
       console.log('product not added');
     }
   };
-  // useEffect(async () => {
-  //   const response = await getProduct(id);
-  //   setProduct(response.data);
-  // }, []);
 
   useEffect(() => {
     async function fetchData(id) {
@@ -128,7 +128,9 @@ const ProductPage = ({ addToCart, match }) => {
                   />
                 </div>
               </div>
-              <div>total:{productInfo.prix * quantity} Dh</div>
+              <div>
+                total : <b> {productInfo.prix * quantity} Dh</b>
+              </div>
             </div>
             <button
               className='btn btn-primary'
@@ -138,6 +140,7 @@ const ProductPage = ({ addToCart, match }) => {
               <p>Add To Cart</p>
               <FaCartPlus style={{ marginLeft: '3rem', fontSize: '2rem' }} />
             </button>
+            <ToastContainer />
           </div>
         </div>
         <div className='productsSemillar'></div>
