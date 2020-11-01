@@ -1,5 +1,8 @@
 import React from 'react';
 import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const CartItem = ({
@@ -10,6 +13,7 @@ const CartItem = ({
 }) => {
   if (quantity == 0) {
     removeFromCart(id);
+    toast.warning('item deleted');
   }
   return (
     <tr>
@@ -42,8 +46,9 @@ const CartItem = ({
         <FaTrashAlt
           className='icon'
           style={{ width: '2rem' }}
-          onClick={() => removeFromCart(id)}
+          onClick={() => { removeFromCart(id); toast.warning('item deteled form cart') }}
         />
+        <ToastContainer />
       </td>
     </tr>
   );
