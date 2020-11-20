@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import CartItem from '../cart/CartItem';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   removeFromCart,
   incrementItem,
@@ -17,10 +19,15 @@ const CartPage = ({
   decrementItem,
 }) => {
   // use State
+  const [address, setAdrress] = useState('تجزءة الفلاحة 2 رقم 45 الرشيدية');
 
-  const [address, setAdrress] = useState('');
-  const [dis, setdis] = useState(true);
-
+  // validate order function
+  const validateOrder = () => {
+    if (address !== '' && cart.length > 0) {
+      toast.success('your order is saved successfully !');
+    }
+  };
+  // increment and decrement items in cart
   const increment = (id) => {
     incrementItem(id);
   };
@@ -83,6 +90,7 @@ const CartPage = ({
           </tr>
         </tbody>
       </table>
+      <ToastContainer />
       <div className='card' style={AddressCard}>
         <h3>Address</h3>
         <textarea
@@ -95,10 +103,7 @@ const CartPage = ({
           value={address}
           onChange={(e) => setAdrress(e.target.value)}
         ></textarea>
-        <button
-          style={ButtonConfirmStyle}
-          onClick={() => console.log(address, cart)}
-        >
+        <button style={ButtonConfirmStyle} onClick={validateOrder}>
           Confirm
         </button>
       </div>
