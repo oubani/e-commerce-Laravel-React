@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import CartItem from '../cart/CartItem';
 import {
   removeFromCart,
   incrementItem,
   decrementItem,
-  emptyCart
+  emptyCart,
 } from '../../actions/cartAction';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const CartPage = ({ 
+const CartPage = ({
   cart: { cart },
   removeFromCart,
   incrementItem,
   emptyCart,
-  decrementItem }) => {
+  decrementItem,
+}) => {
+  // use State
 
-    const increment = (id) => {
-      incrementItem(id);
-    };
-    const decrement = (id) => {
-      decrementItem(id);
-    };
+  const [address, setAdrress] = useState('');
+  const [dis, setdis] = useState(true);
+
+  const increment = (id) => {
+    incrementItem(id);
+  };
+  const decrement = (id) => {
+    decrementItem(id);
+  };
 
   if (cart.length === 0) {
     return (
@@ -31,14 +36,17 @@ const CartPage = ({
     );
   }
 
-  let total ;
-  total=0;
-  cart.forEach(element => {
-    total += element.prix * element.quantity
+  let total;
+  total = 0;
+  cart.forEach((element) => {
+    total += element.prix * element.quantity;
   });
-  const handleEmpty = () => emptyCart()  ;
+  const handleEmpty = () => emptyCart();
   return (
-    <div className='container'>
+    <div
+      className='container'
+      style={{ display: 'flex', justifyContent: 'space-between' }}
+    >
       <table className='table'>
         <thead>
           <tr>
@@ -52,34 +60,85 @@ const CartPage = ({
         </thead>
         <tbody>
           {cart.map((item) => (
-            <CartItem item={item} key={item.id} increment={increment} removeFromCart={removeFromCart} decrement={decrement} />
+            <CartItem
+              item={item}
+              key={item.id}
+              increment={increment}
+              removeFromCart={removeFromCart}
+              decrement={decrement}
+            />
           ))}
           <tr>
-            <td style={{textAlign:'left'}} colSpan='4' > Total</td>
-            <td  > {total} Dh </td>
-            <td> 
-              <div style={ButtonStyle} onClick={handleEmpty}  >
-                Empty Cart 
-                <FaRegTrashAlt style={{marginLeft:'1.5rem'}} />
+            <td style={{ textAlign: 'left' }} colSpan='4'>
+              {' '}
+              Total
+            </td>
+            <td> {total} Dh </td>
+            <td>
+              <div style={ButtonStyle} onClick={handleEmpty}>
+                Empty Cart
+                <FaRegTrashAlt style={{ marginLeft: '1.5rem' }} />
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+      <div className='card' style={AddressCard}>
+        <h3>Address</h3>
+        <textarea
+          style={{ margin: '15px auto' }}
+          name='address'
+          id='address'
+          required
+          cols='30'
+          rows='4'
+          value={address}
+          onChange={(e) => setAdrress(e.target.value)}
+        ></textarea>
+        <button
+          style={ButtonConfirmStyle}
+          onClick={() => console.log(address, cart)}
+        >
+          Confirm
+        </button>
+      </div>
     </div>
   );
 };
 
 const ButtonStyle = {
   color: 'white',
-  backgroundColor:'#ff3232',
-  paddingTop:'0.5rem',
-  paddingBottom:'0.5rem',
-  borderRadius:'5px',
+  backgroundColor: '#ff3232',
+  paddingTop: '0.5rem',
+  paddingBottom: '0.5rem',
+  borderRadius: '5px',
+};
+const ButtonConfirmStyle = {
+  color: 'white',
+  backgroundColor: '#ff3232',
+  padding: '0.8rem',
+  borderRadius: '5px',
+  borderStyle: 'none',
+};
+
+const AddressCard = {
+  color: 'black',
+  // backgroundColor: '#1E3D59',
+  marginTop: '28px',
+  padding: '10px 15px',
+  borderRadius: '5px',
+  height: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps,{ removeFromCart, incrementItem, decrementItem,emptyCart } )(CartPage);
+export default connect(mapStateToProps, {
+  removeFromCart,
+  incrementItem,
+  decrementItem,
+  emptyCart,
+})(CartPage);

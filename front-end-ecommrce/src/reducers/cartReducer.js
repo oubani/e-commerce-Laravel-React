@@ -9,7 +9,13 @@ import {
 
 const initialState = {
   cart: [
-    
+    {
+      id: 1,
+      name: 'Sony Alpha 2 camera',
+      thumbnail: 'camera.png',
+      prix: 1500,
+      quantity: 1,
+    },
   ],
 };
 const alreadyExisit = (id, cart) => {
@@ -82,7 +88,7 @@ export default (state = initialState, action) => {
     case EMPTY_CART:
       return {
         ...state,
-        cart : state.cart.splice()
+        cart: state.cart.splice(),
       };
     default:
       return state;
