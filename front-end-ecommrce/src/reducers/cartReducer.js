@@ -8,15 +8,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  cart: [
-    {
-      id: 1,
-      name: 'Sony Alpha 2 camera',
-      thumbnail: 'camera.png',
-      prix: 1500,
-      quantity: 1,
-    },
-  ],
+  cart: JSON.parse(localStorage.getItem('cart')).map((item) => item),
 };
 const alreadyExisit = (id, cart) => {
   if (cart.length === 0) {
@@ -47,6 +39,9 @@ export default (state = initialState, action) => {
           ],
         };
       } else {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        cart.push(action.payload.item);
+        localStorage.setItem('cart', JSON.stringify(cart));
         return {
           ...state,
           cart: [...state.cart, action.payload.item],
