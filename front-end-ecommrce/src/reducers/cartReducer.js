@@ -27,6 +27,13 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       if (alreadyExisit(action.payload.item.id, state.cart)) {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        cart.forEach((item) => {
+          if (item.id === action.payload.item.id) {
+            item.quantity++;
+          }
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
         return {
           ...state,
           cart: [
@@ -53,11 +60,23 @@ export default (state = initialState, action) => {
         cart: [...state.cart, action.payload.item],
       };
     case REMOVE_FROM_CART:
+      var cart = JSON.parse(localStorage.getItem('cart'));
+      var newCart = cart.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem('cart', JSON.stringify(newCart));
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== action.payload.id),
       };
     case INCREMENT_ITEM:
+      var cart = JSON.parse(localStorage.getItem('cart'));
+      cart.forEach((item) => {
+        if (item.id === action.payload.id) {
+          item.quantity++;
+          return item;
+        }
+        return item;
+      });
+      localStorage.setItem('cart', JSON.stringify(cart));
       return {
         ...state,
         cart: state.cart.map((item) => {
