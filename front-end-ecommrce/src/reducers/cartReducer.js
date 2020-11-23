@@ -126,7 +126,7 @@ export default (state = initialState, action) => {
         ],
       };
     case EMPTY_CART:
-      // localStorage.setItem('cart', []);
+      localStorage.removeItem('cart');
       return {
         ...state,
         cart: state.cart.splice(),
