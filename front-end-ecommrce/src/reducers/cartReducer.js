@@ -8,8 +8,13 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  cart: JSON.parse(localStorage.getItem('cart')).map((item) => item),
+  cart:
+    localStorage.getItem('cart') !== null
+      ? JSON.parse(localStorage.getItem('cart')).map((item) => item)
+      : [],
 };
+
+// check if the product exist on cart
 const alreadyExisit = (id, cart) => {
   if (cart.length === 0) {
     return false;
@@ -26,6 +31,13 @@ const alreadyExisit = (id, cart) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
+      if (localStorage.getItem('cart') === null) {
+        var cart = [];
+        cart.push(action.payload.item);
+        cart.splice(action.payload.item);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
       if (alreadyExisit(action.payload.item.id, state.cart)) {
         var cart = JSON.parse(localStorage.getItem('cart'));
         cart.forEach((item) => {
@@ -33,7 +45,8 @@ export default (state = initialState, action) => {
             item.quantity++;
           }
         });
-        localStorage.setItem('cart', JSON.stringify(cart));
+
+        localStorage.setItem('cart', [JSON.stringify(cart)]);
         return {
           ...state,
           cart: [
@@ -46,9 +59,13 @@ export default (state = initialState, action) => {
           ],
         };
       } else {
-        var cart = JSON.parse(localStorage.getItem('cart'));
-        cart.push(action.payload.item);
-        localStorage.setItem('cart', JSON.stringify(cart));
+        if (JSON.parse(localStorage.getItem('cart')) === null) {
+          localStorage.setItem('cart', JSON.stringify(action.payload.item));
+        } else {
+          var cart = JSON.parse(localStorage.getItem('cart'));
+          cart.push(action.payload.item);
+          localStorage.setItem('cart', JSON.stringify(cart));
+        }
         return {
           ...state,
           cart: [...state.cart, action.payload.item],
@@ -88,6 +105,15 @@ export default (state = initialState, action) => {
         }),
       };
     case DECREMENT_ITEM:
+      var cart = JSON.parse(localStorage.getItem('cart'));
+      cart.forEach((item) => {
+        if (item.id === action.payload.id) {
+          item.quantity--;
+          return item;
+        }
+        return item;
+      });
+      localStorage.setItem('cart', JSON.stringify(cart));
       return {
         ...state,
         cart: [
@@ -100,6 +126,7 @@ export default (state = initialState, action) => {
         ],
       };
     case EMPTY_CART:
+      // localStorage.setItem('cart', []);
       return {
         ...state,
         cart: state.cart.splice(),
