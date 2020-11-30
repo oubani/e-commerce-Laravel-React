@@ -21,7 +21,7 @@ const alreadyExisit = (id, cart) => {
   }
   let flag = false;
   for (let i = 0; i < cart.length; i++) {
-    if (cart[i].id == id) {
+    if (cart[i].id === id) {
       flag = true;
       break;
     }

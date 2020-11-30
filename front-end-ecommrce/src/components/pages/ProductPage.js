@@ -11,9 +11,8 @@ const ProductPage = ({ addToCart, match }) => {
   //console.log(props);
   // State
   const [product, setProduct] = useState(null);
-  const [image, setImage] = useState('');
+  // const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const notify = () => toast('Wow so easy !');
   // get the product id
   const id = match.params.id;
 
@@ -74,6 +73,7 @@ const ProductPage = ({ addToCart, match }) => {
               {images.map((image) => (
                 <img
                   key={image.id}
+                  alt={image.name}
                   src={`http://localhost:8000/images/${image.thumbnail}`}
                   className={sImag}
                 />
@@ -81,7 +81,8 @@ const ProductPage = ({ addToCart, match }) => {
             </div>
             <div className={primaryImage}>
               <img
-                key={image.id}
+                key={product.id}
+                alt={product.thumbnail}
                 src={`http://localhost:8000/images/${productInfo.thumbnail}`}
                 className={pImag}
               />
@@ -150,7 +151,6 @@ const ProductPage = ({ addToCart, match }) => {
 };
 
 const btnStyle = {
-  display: 'block',
   padding: '1rem 2rem',
   width: '100%',
   fontSize: '1rem',

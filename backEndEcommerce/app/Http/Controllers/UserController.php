@@ -32,18 +32,14 @@ class UserController extends Controller
     function register(Request $request)
     {
         try {
-            // return $request;
+
             $request->validate([
                 'name' => 'required|string|min:8|max:255',
                 'email' => 'required|unique:users,email',
                 'password' => 'required|string|min:8'
             ]);
             // return $request;
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
+            $user = User::create($request);
             // print_r($data);
             if (!$user) {
                 return response([
@@ -63,6 +59,7 @@ class UserController extends Controller
             return 'Email already taken try with another one';
         };
     }
+
     function users()
     {
         return User::all();

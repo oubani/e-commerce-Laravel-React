@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import CartItem from '../cart/CartItem';
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,6 +14,8 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 
 const CartPage = ({
   cart: { cart },
+  auth,
+  product: { product },
   removeFromCart,
   incrementItem,
   emptyCart,
@@ -22,9 +25,29 @@ const CartPage = ({
   const [address, setAdrress] = useState('تجزءة الفلاحة 2 رقم 45 الرشيدية');
 
   // validate order function
-  const validateOrder = () => {
+  const validateOrder = async () => {
     if (address !== '' && cart.length > 0) {
-      toast.success('your order is saved successfully !');
+      try {
+        const config = {
+          headers: { authorization: `Bearer ${auth.token}` },
+        };
+
+        const body = {
+          address: address,
+          cart: JSON.stringify(cart),
+        };
+
+        const data = await axios.post(
+          'http://localhost:8000/api/order',
+          body,
+          config
+        );
+        emptyCart();
+        await toast.success('your order is saved successfully !');
+      } catch (er) {
+        console.log(er);
+        toast.warning('Please try again youtr order is not complited ');
+      }
     }
   };
   // increment and decrement items in cart
@@ -120,7 +143,9 @@ const ButtonStyle = {
 };
 const ButtonConfirmStyle = {
   color: 'white',
-  backgroundColor: '#ff3232',
+  letterSpacing: '3px',
+  fontSize: '1rem',
+  backgroundColor: '#00f00f',
   padding: '0.8rem',
   borderRadius: '5px',
   borderStyle: 'none',
@@ -139,6 +164,8 @@ const AddressCard = {
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
+  product: state.product,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
