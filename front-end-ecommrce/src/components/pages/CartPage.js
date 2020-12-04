@@ -35,15 +35,14 @@ const CartPage = ({
         const body = {
           address: address,
           cart: JSON.stringify(cart),
+          user_id: auth.user.id,
         };
 
-        const data = await axios.post(
-          'http://localhost:8000/api/order',
-          body,
-          config
-        );
-        emptyCart();
-        await toast.success('your order is saved successfully !');
+        axios.post('http://localhost:8000/api/order', body, config);
+        toast.success('your order is saved successfully !');
+        setTimeout(() => {
+          emptyCart();
+        }, 5000);
       } catch (er) {
         console.log(er);
         toast.warning('Please try again youtr order is not complited ');
