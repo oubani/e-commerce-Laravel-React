@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { connect } from 'react-redux';
@@ -9,9 +9,19 @@ const Navbar = ({
   cart: { cart },
   checkLogin,
 }) => {
+  // check if user is logeed in
   useEffect(() => {
     checkLogin();
   }, []);
+
+  // search value
+  const [search, setSearch] = useState('');
+
+  // handle Submit Search
+  const handleSearch = () => {
+    window.location = `/search?search=${search}`;
+  };
+
   return (
     <div className='navbar'>
       <div className='container'>
@@ -20,15 +30,22 @@ const Navbar = ({
             Elecrto<span>Store</span>
           </h1>
           <div className='search-zone'>
-            <form>
+            <form action='/search' onSubmit={handleSearch}>
               <select name='categorie'>
                 <option value='none'>All</option>
                 <option value='Smart Phone'>Smart Phone</option>
                 <option value='Laptops'>Laptops</option>
                 <option value='Headphones'>Laptops</option>
               </select>
-              <input type='text' name='search' className='search' />
-              <FaSearch className='search-icon' />
+              <input
+                type='text'
+                name='search'
+                className='search'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
+              <FaSearch className='search-icon' onClick={handleSearch} />
             </form>
             <ul className='search-results'></ul>
           </div>
@@ -45,7 +62,7 @@ const Navbar = ({
                 <span className='badge'>{cart.length} </span>
               </Link>
             </li>
-            {user !== null ? (
+            {user !== null && isAuthenticated ? (
               <li>
                 <Link to='/dashboard'> {user.name} </Link>
               </li>
