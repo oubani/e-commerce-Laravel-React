@@ -6,7 +6,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', 'UserController@users');
 });
 
-Route::resource('Category','CategoryController');
+Route::resource('category','CategoryController');
 Route::post('order','OrderController@store');
 
 Route::post('login', 'UserController@login');
