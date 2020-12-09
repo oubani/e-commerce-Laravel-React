@@ -11,14 +11,14 @@ const CartItem = ({
   removeFromCart,
   item: { id, thumbnail, name, quantity, prix }
 }) => {
-  if (quantity == 0) {
+  if (quantity === 0) {
     removeFromCart(id);
     toast.warning('item deleted');
   }
   return (
     <tr>
       <td>
-        <img src={`http://localhost:8000/images/${thumbnail}`} />
+        <img src={`http://localhost:8000/images/${thumbnail}`} alt={name} />
       </td>
       <td>{name}</td>
       <td>
