@@ -9,36 +9,39 @@ const SearchPage = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState(0);
   const [sort, setSort] = useState(1);
-  const [min, setMin] = useState(0);
+  const [min, setMin] = useState(1);
   const [max, setMax] = useState(100000);
   const [loading, setLoading] = useState(false);
+  const link = process.env.REACT_APP_DOMAIN;
+  // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
   // get data from link
-  var newtable = window.location.href.split('?');
-  const search = newtable[1].split('=')[1];
+  var search = window.location.href.split('?')[1].split('=')[1];
 
   const handleSubmit = (e) => {
-    // submittde
     e.preventDefault();
+    setLoading(true);
     axios
       .post(`${link}/search`, body, null)
-      .then((fetchedData) => setProducts(fetchedData.data.products))
+      .then((fetchedData) => {
+        setProducts(fetchedData.data.products);
+        setLoading(false);
+      })
       .catch((e) => console.log(e.message));
+
     console.log('submited');
   };
 
   const handleSelectChange = (e) => setCategory(e.target.value);
 
-  const link = process.env.REACT_APP_DOMAIN;
-
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
   useEffect(() => {
     // get categories
+    setLoading(true);
     axios
       .get(`${link}/category`)
       .then((fetchedData) => {
         setCategories(fetchedData.data.categories);
+        setLoading(false);
       })
       .catch((e) => {
         console.log('error' + e);
@@ -60,7 +63,7 @@ const SearchPage = () => {
 
   return (
     <div style={display} className='container'>
-      <h1> Searching for " {search} " </h1>
+      <h1 style={header}> Searching for " {search} " </h1>
       <form style={inlineForm} onSubmit={handleSubmit}>
         <div style={formGroup}>
           <label htmlFor='mini'>Min : </label>
@@ -68,6 +71,7 @@ const SearchPage = () => {
             type='number'
             name='min'
             value={min}
+            min={1}
             onChange={(e) => setMin(e.target.value)}
             style={inputNumber}
           />
@@ -78,6 +82,7 @@ const SearchPage = () => {
             type='number'
             name='max'
             value={max}
+            min={100}
             onChange={(e) => setMax(e.target.value)}
             style={inputNumber}
           />
@@ -105,15 +110,21 @@ const SearchPage = () => {
             <option value={2}>high </option>
           </select>
         </div>
-        <input type='submit' value='Search' />
+        <input type='submit' value='Search' style={submitBtn} />
       </form>
 
-      <div>{category} </div>
-      <div style={displayProducts}>
-        {products.map((product) => (
-          <ProductItem product={product} key={product.id} />
-        ))}
-      </div>
+      {loading && <Loading />}
+
+      {products.length > 0 && !loading ? (
+        <div style={displayProducts}>
+          {products.map((product) => (
+            <ProductItem product={product} key={product.id} />
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
+      {products.length === 0 && !loading && <p>there is no products</p>}
     </div>
   );
 };
@@ -123,10 +134,18 @@ const display = {
   width: '700px',
   maxWidth: '100%',
 };
+
+const header = {
+  color: '#4A637A',
+  margin: '1.5rem auto',
+};
+
 const inlineForm = {
-  padding: '1rem',
+  backgroundColor: '#add8e6',
+  padding: '1rem 10px',
+  marginBottom: '1rem',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   alignItems: 'center',
 };
 const inputNumber = {
@@ -134,6 +153,13 @@ const inputNumber = {
 };
 const formGroup = {
   marginRight: '1.2rem',
+};
+
+const submitBtn = {
+  color: 'white',
+  padding: '0.5rem 1rem',
+  backgroundColor: '#1E3D59',
+  border: 'none',
 };
 
 const displayProducts = {
