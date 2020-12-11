@@ -18,7 +18,6 @@ const ProductItem = ({ product, addToCart }) => {
       localStorage.setItem('favorites', JSON.stringify(LocalFavorites));
     }
     var localFavorites = JSON.parse(localStorage.getItem('favorites'));
-    console.log(localFavorites.includes(id));
     if (!localFavorites.includes(id)) {
       localFavorites.push(id);
       localStorage.setItem('favorites', JSON.stringify(localFavorites));
