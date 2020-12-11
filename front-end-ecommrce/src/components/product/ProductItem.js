@@ -25,6 +25,12 @@ const ProductItem = ({ product, addToCart }) => {
     }
   };
 
+  const removeFromFavorite = (id) => {
+    var localFavorites = JSON.parse(localStorage.getItem('favorites'));
+    const newListe = localFavorites.filter((n) => (n !== id ? id : ''));
+    localStorage.setItem('favorites', JSON.stringify(newListe));
+  };
+
   const favorites = JSON.parse(localStorage.getItem('favorites'));
 
   const addClick = ({ product }, qte = 1) => {
@@ -60,7 +66,10 @@ const ProductItem = ({ product, addToCart }) => {
               onClick={() => addToFavorite(id)}
             />
           ) : (
-            <FaHeart className='clickedIcon' />
+            <FaHeart
+              className='clickedIcon'
+              onClick={() => removeFromFavorite(id)}
+            />
           )}
         </p>
       </div>
