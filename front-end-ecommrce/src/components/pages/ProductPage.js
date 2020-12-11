@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FaPlusCircle, FaMinusCircle, FaCartPlus } from 'react-icons/fa';
+import Loading from '../layouts/Loading';
 import { getProduct } from '../../actions/productAction';
 import { addToCart } from '../../actions/cartAction';
 import style from './ProductPage.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//
+
 const ProductPage = ({ addToCart, match }) => {
-  //console.log(props);
-  // State
   const [product, setProduct] = useState(null);
+
   // const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1);
+
   // get the product id
   const id = match.params.id;
 
@@ -26,25 +27,28 @@ const ProductPage = ({ addToCart, match }) => {
         prix: productInfo.prix,
         quantity,
       };
-      //console.log(quantity, item);
+
       addToCart(quantity, item);
+
       toast.success('Item added to cart ');
+
       setQuantity(0);
     } else {
-      console.log('product not added');
+      toast.info(' Plase set quantity ');
     }
   };
 
   useEffect(() => {
     async function fetchData(id) {
-      // You can await here
+      // get product info
       const response = await getProduct(id);
-      // ...
+
       setProduct(response.data);
     }
+
     fetchData(id);
   }, []);
-  console.log(product);
+
   if (product) {
     // distract data
     const { productInfo, images } = product;
@@ -147,7 +151,7 @@ const ProductPage = ({ addToCart, match }) => {
         <div className='productsSemillar'></div>
       </div>
     );
-  } else return <p>Loading</p>;
+  } else return <Loading />;
 };
 
 const btnStyle = {

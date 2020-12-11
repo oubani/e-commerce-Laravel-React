@@ -31,12 +31,6 @@ const Navbar = ({
           </h1>
           <div className='search-zone'>
             <form action='/search' onSubmit={handleSearch}>
-              <select name='categorie'>
-                <option value='none'>All</option>
-                <option value='Smart Phone'>Smart Phone</option>
-                <option value='Laptops'>Laptops</option>
-                <option value='Headphones'>Laptops</option>
-              </select>
               <input
                 type='text'
                 name='search'
@@ -52,9 +46,6 @@ const Navbar = ({
           <ul>
             <li>
               <Link to='/'> Products</Link>
-            </li>
-            <li>
-              <Link to='/product/1'> Product 1</Link>
             </li>
             <li>
               <Link to='/cart'>

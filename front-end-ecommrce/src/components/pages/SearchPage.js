@@ -83,6 +83,7 @@ const SearchPage = () => {
             name='max'
             value={max}
             min={100}
+            width='500px'
             onChange={(e) => setMax(e.target.value)}
             style={inputNumber}
           />
