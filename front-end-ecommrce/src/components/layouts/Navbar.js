@@ -50,7 +50,11 @@ const Navbar = ({
             <li>
               <Link to='/cart'>
                 <FaShoppingCart className='cart-icon' />
-                <span className='badge'>{cart.length} </span>
+                {cart.length > 0 ? (
+                  <span className='badge'>{cart.length} </span>
+                ) : (
+                  ''
+                )}
               </Link>
             </li>
             {user !== null && isAuthenticated ? (
