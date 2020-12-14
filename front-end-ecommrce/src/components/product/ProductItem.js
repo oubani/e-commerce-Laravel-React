@@ -24,7 +24,6 @@ const ProductItem = ({ product, addToCart }) => {
       localStorage.setItem('favorites', JSON.stringify(localFavorites));
     }
   };
-
   const removeFromFavorite = (id) => {
     var localFavorites = JSON.parse(localStorage.getItem('favorites'));
     const newListe = localFavorites.filter((n) => (n !== id ? id : ''));

@@ -1,12 +1,7 @@
-import {
-  GETHIGHPROMOTION,
-  GETMOSTORDERED,
-  GETNEWPRODUCTS,
-  SHOWPRODUCT,
-} from './types';
+import { GETHIGHPROMOTION, GETMOSTORDERED, GETNEWPRODUCTS } from './types';
 import axios from 'axios';
 
-const link = 'http://localhost:8000/api';
+const link = process.env.REACT_APP_DOMAIN;
 
 // get new  products
 export const getNewProducts = () => async (dispatch) => {
@@ -32,6 +27,7 @@ export const getHighPromotion = () => async (dispatch) => {
     console.log(err);
   }
 };
+
 export const getMostOrderd = () => async (dispatch) => {
   try {
     const res = await axios.get(`${link}/products/mostOrdered`);

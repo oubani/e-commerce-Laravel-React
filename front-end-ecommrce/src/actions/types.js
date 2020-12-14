@@ -10,8 +10,6 @@ export const CHECK_LOGIN = 'CHECK_LOGIN';
 export const GETNEWPRODUCTS = 'NEWPRODUCTS';
 export const GETMOSTORDERED = 'MOSTORDERED';
 export const GETHIGHPROMOTION = 'HIGHPROMOTION';
-export const SHOWPRODUCT = 'SHOWPRODUCT';
-
 
 // Cart Types
 export const ADD_TO_CART = 'ADD_TO_CART';
