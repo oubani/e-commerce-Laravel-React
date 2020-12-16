@@ -14,21 +14,20 @@ class SearchController extends Controller
     public function search(Request $request)
     {
 
-        return 'good';
 
-        $min = 0;
-        $max  = 1000000;
 
         $min = $request->get('minP');
         $max = $request->get('maxP');
+        $category = $request->get('categoryP');
+        $sortedByP=$request->get('sortedByP');
+
 
         $products = Product::query()
             ->where('name', 'LIKE', "%{$request->get('searchP')}%")
-            ->where('category_id',$request->get('categoryP')===0?'!=':'=',$request->get('categoryP'))
+            ->where('category_id',$category==0?'!=':'=',"$category")
             ->whereBetween('prix', [$min, $max])
-            ->orderBy('prix', $request->get('sortedByP')==2?'desc':'asc')
-            ->paginate(1);
-
+            ->orderBy('prix', $sortedByP==2?'desc':'asc')
+            ->paginate(2);
 
         return $this->returnData('products',$products,'with success');
     }

@@ -2,15 +2,17 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductItem from '../product/ProductItem';
 import Loading from '../../components/layouts/Loading';
+import { Link } from 'react-router-dom';
+import Pagination from '../layouts/Pagination/Pagination';
 
 const SearchPage = () => {
   //   set categories field
   const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
   const [category, setCategory] = useState(0);
   const [sort, setSort] = useState(1);
   const [min, setMin] = useState(1);
-  const [max, setMax] = useState(100000);
+  const [max, setMax] = useState(1000000);
   const [loading, setLoading] = useState(false);
   const link = process.env.REACT_APP_DOMAIN;
   // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -22,7 +24,7 @@ const SearchPage = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(`${link}/search`, body, null)
+      .get(`${link}/search`, { params: body }, null)
       .then((fetchedData) => {
         setProducts(fetchedData.data.products);
         setLoading(false);
@@ -48,18 +50,20 @@ const SearchPage = () => {
       });
     // fetch for first time
     axios
-      .post(`${link}/search`, body, null)
+      .get(`${link}/search`, { params: body }, null)
       .then((fetchedData) => setProducts(fetchedData.data.products))
       .catch((e) => console.log(e.message));
   }, []);
 
   const body = {
-    searchP: search,
-    categoryP: category,
     minP: min,
     maxP: max,
+    searchP: search,
+    categoryP: category,
     sortedByP: sort,
   };
+
+  const { current_page, last_page } = products;
 
   return (
     <div style={display} className='container'>
@@ -116,11 +120,17 @@ const SearchPage = () => {
 
       {loading && <Loading />}
 
-      {products.length > 0 && !loading ? (
-        <div style={displayProducts}>
-          {products.map((product) => (
-            <ProductItem product={product} key={product.id} />
-          ))}
+      {products.data !== undefined && !loading ? (
+        <div>
+          <p> total products found :{products.total}</p>
+          <div style={displayProducts}>
+            {products.data.map((product) => (
+              <ProductItem product={product} key={product.id} />
+            ))}
+          </div>
+          <div className='pagination'>
+            <Pagination currentPage={current_page} lastPage={last_page} />
+          </div>
         </div>
       ) : (
         ''

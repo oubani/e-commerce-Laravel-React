@@ -12,7 +12,7 @@
   margin: 0px;
 }
 body {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Calibri, 'Times New Roman', Times, serif;
 }
 /* Default */
 ul {
@@ -245,4 +245,24 @@ h1 span {
 }
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+/* Pagination links */
+/* .pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+} */
+
+/* Style the active/current link */
+.pagination a.active {
+  background-color: var(--main-orange-color);
+  color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
 }
