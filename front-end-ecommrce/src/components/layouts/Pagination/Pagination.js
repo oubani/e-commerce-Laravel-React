@@ -2,19 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PageLink = styled.div`
-  color: black;
+  color: ${({ active }) => (active ? 'white' : 'black')};
+  font-size: 1rem;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
   transition: background-color 0.3s;
   cursor: pointer;
   margin-right: 10px;
-  background: ${({ active }) => (active ? '#4b59f7' : '#ddd')};
+  background: ${({ active }) => (active ? '#1E3D59' : '#ddd')};
 `;
 
-const Pagination = ({ currentPage, lastPage }) => {
-  console.log({ currentPage, lastPage });
-  const HandleClickPage = (e, p1, p2) => {};
+const Pagination = ({ currentPage, lastPage, getData, body }) => {
+  console.log(currentPage, lastPage);
+  const HandleClickPage = (n) => {
+    body.page = n;
+    console.log(body);
+    getData(body);
+  };
 
   let items = [];
 
@@ -24,7 +29,8 @@ const Pagination = ({ currentPage, lastPage }) => {
         <PageLink
           key={index}
           active
-          onClick={(e) => HandleClickPage(e, '1', '2')}
+          aria-disabled
+          onClick={() => HandleClickPage(index)}
         >
           {' '}
           {index}{' '}
@@ -32,7 +38,7 @@ const Pagination = ({ currentPage, lastPage }) => {
       );
     } else {
       items.push(
-        <PageLink key={index} onClick={(e) => HandleClickPage(e, '1', '2')}>
+        <PageLink key={index} onClick={() => HandleClickPage(index)}>
           {' '}
           {index}{' '}
         </PageLink>

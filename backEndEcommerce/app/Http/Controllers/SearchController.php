@@ -27,7 +27,7 @@ class SearchController extends Controller
             ->where('category_id',$category==0?'!=':'=',"$category")
             ->whereBetween('prix', [$min, $max])
             ->orderBy('prix', $sortedByP==2?'desc':'asc')
-            ->paginate(2);
+            ->paginate(3);
 
         return $this->returnData('products',$products,'with success');
     }

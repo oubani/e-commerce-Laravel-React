@@ -16,6 +16,7 @@ const SearchForm = ({ search, categories, getData }) => {
     searchP: search,
     categoryP: category,
     sortedByP: sort,
+    page: 1,
   };
 
   const handleSubmit = (e) => {

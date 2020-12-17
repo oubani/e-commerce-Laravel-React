@@ -53,6 +53,7 @@ const SearchPage = () => {
     searchP: search,
     categoryP: 0,
     sortedByP: 1,
+    page: 1,
   };
 
   const { current_page, last_page } = products;
@@ -66,10 +67,20 @@ const SearchPage = () => {
       {loading && <Loading />}
       {products.data !== undefined && !loading ? (
         <div>
-          <p> total products found :{products.total}</p>
+          <p style={{ marginBottom: '15px' }}>
+            {' '}
+            total products found :{products.total}
+          </p>
           <SearchResults products={products.data} />
-          <div className='pagination'>
-            <Pagination currentPage={current_page} lastPage={last_page} />
+          <div className='pagination' style={{ marginTop: '15px' }}>
+            {products.total > 3 && (
+              <Pagination
+                currentPage={current_page}
+                lastPage={last_page}
+                getData={getData}
+                body={body}
+              />
+            )}
           </div>
         </div>
       ) : (
