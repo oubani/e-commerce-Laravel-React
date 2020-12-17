@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Validator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -24,13 +27,46 @@ class AuthController extends Controller
      */
     public function login()
     {
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'credentials do not match please enter a validate email and password '], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+
+    public function register(Request $request)
+    {
+
+        // validate credentials
+            $validator = Validator::make($request->all(),[
+                'name'=>'required|string|between:7,40',
+                'email'=>'required|email|max:255|unique:users',
+                'password'=>'required|confirmed|string|min:8'
+            ]);
+
+            if ($validator->fails()){
+                return response()->json($validator->errors()->toJson(),400);
+            }
+
+            $user = User::create(array_merge(
+                $validator->validated(),
+                ['password'=>bcrypt($request->password)]
+            ));
+
+            $credentials = ['email'=>$user->email,'password'=>$user->password];
+
+            $token  = auth()->attempt($credentials);
+
+            return response()->json([
+                'message'=>'user created successfully',
+                'user'=> $user,
+                'token'=>$this->createNewToken($token)
+            ]);
+
     }
 
     /**
@@ -80,4 +116,20 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function createNewToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
+    }
+
 }

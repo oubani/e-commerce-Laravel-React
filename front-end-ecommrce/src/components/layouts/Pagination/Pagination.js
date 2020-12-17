@@ -14,10 +14,8 @@ const PageLink = styled.div`
 `;
 
 const Pagination = ({ currentPage, lastPage, getData, body }) => {
-  console.log(currentPage, lastPage);
   const HandleClickPage = (n) => {
     body.page = n;
-    console.log(body);
     getData(body);
   };
 
