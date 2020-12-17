@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getNewProducts } from '../../actions/productAction';
-import ProductItem from '../product/ProductItem';
+import { getHighPromotion } from '../../../actions/productAction';
+import ProductItem from '../../product/ProductItem';
 
-const NewProducts = ({ products: { newProducts }, getNewProducts }) => {
+const HighPromoted = ({ products: { newProducts }, getHighPromotion }) => {
   useEffect(() => {
-    getNewProducts();
+    getHighPromotion();
     //
   }, []);
   return (
     <div className='container'>
-      <h1>New Products</h1>
+      <h1>High Promoted</h1>
       <section className='ProductsSection'>
         {newProducts &&
           newProducts.map((product) => (
@@ -25,4 +25,4 @@ const mapStateToProps = (state) => ({
   products: state.product,
 });
 
-export default connect(mapStateToProps, { getNewProducts })(NewProducts);
+export default connect(mapStateToProps, { getHighPromotion })(HighPromoted);

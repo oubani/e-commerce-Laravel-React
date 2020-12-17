@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getMostOrderd } from '../../actions/productAction';
-import ProductItem from '../product/ProductItem';
+import { getMostOrderd } from '../../../actions/productAction';
+import ProductItem from '../../product/ProductItem';
 
 const MostOrderd = ({ products: { newProducts }, getMostOrderd }) => {
   useEffect(() => {
