@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import {
   ADD_TO_CART,
   UPDATE_CART,
@@ -39,6 +40,7 @@ export default (state = initialState, action) => {
       }
 
       if (alreadyExisit(action.payload.item.id, state.cart)) {
+        // eslint-disable-next-line no-redeclare
         var cart = JSON.parse(localStorage.getItem('cart'));
         cart.forEach((item) => {
           if (item.id === action.payload.item.id) {
