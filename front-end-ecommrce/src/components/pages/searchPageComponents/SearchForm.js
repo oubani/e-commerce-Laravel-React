@@ -20,6 +20,7 @@ const SearchForm = ({ search, categories, getData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     getData(body);
   };
 

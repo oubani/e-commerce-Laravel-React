@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import ProductItem from '../product/ProductItem';
 import Loading from '../../components/layouts/Loading';
 import Pagination from '../layouts/Pagination/Pagination';
 import SearchForm from './searchPageComponents/SearchForm';
+import SearchResults from './searchPageComponents/SearchResults';
 
 const SearchPage = () => {
   //   set categories field
@@ -37,6 +37,7 @@ const SearchPage = () => {
 
   // get product
   const getData = (body) => {
+    setLoading(true);
     axios
       .get(`${link}/search`, { params: body }, null)
       .then((fetchedData) => {
@@ -66,11 +67,7 @@ const SearchPage = () => {
       {products.data !== undefined && !loading ? (
         <div>
           <p> total products found :{products.total}</p>
-          <div style={displayProducts}>
-            {products.data.map((product) => (
-              <ProductItem product={product} key={product.id} />
-            ))}
-          </div>
+          <SearchResults products={products.data} />
           <div className='pagination'>
             <Pagination currentPage={current_page} lastPage={last_page} />
           </div>
@@ -94,8 +91,4 @@ const header = {
   margin: '1.5rem auto',
 };
 
-const displayProducts = {
-  display: 'grid',
-  gridTemplateColumns: 'auto auto auto',
-};
 export default SearchPage;

@@ -6,7 +6,7 @@ import ProductItem from '../../product/ProductItem';
 const NewProducts = ({ products: { newProducts }, getNewProducts }) => {
   useEffect(() => {
     getNewProducts();
-    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className='container'>
