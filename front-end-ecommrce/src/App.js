@@ -9,6 +9,7 @@ import Home from './components/pages/Home';
 import CartPage from './components/pages/CartPage';
 import SearchPage from './components/pages/SearchPage';
 import ProductPage from './components/pages/ProductPage';
+import Dashdoard from './components/pages/dashboard/Dashdoard';
 // components
 import Navbar from './components/layouts/Navbar';
 import './App.css';
@@ -20,11 +21,12 @@ function App() {
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/cart' exact component={CartPage} />
+          <Route path='/cart' component={CartPage} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
           <Route path='/product/:id' component={ProductPage} />
           <Route path='/search' component={SearchPage} />
+          <Route path='/Dashboard' component={Dashdoard} />
         </Switch>
         {/* <Footer /> */}
       </Router>

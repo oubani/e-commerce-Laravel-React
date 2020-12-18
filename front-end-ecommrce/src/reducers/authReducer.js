@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('userStore', JSON.stringify(action.payload.user));
+      localStorage.setItem('userStore', action.payload.user);
       return {
         ...state,
         token: action.payload.token,
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
         ...state,
         token: token,
         user: user,
-        isAuthenticated: true,
+        isAuthenticated: action.payload,
       };
     default:
       return state;

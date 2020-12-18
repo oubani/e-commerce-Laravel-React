@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use http\Env\Response;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'credentials do not match please enter a validate email and password '], 401);
         }
 
-        return $this->respondWithToken($token);
+
+        return $this->respondWithToken($token,auth()->user()->name);
     }
 
 
@@ -42,31 +44,31 @@ class AuthController extends Controller
     {
 
         // validate credentials
-            $validator = Validator::make($request->all(),[
-                'name'=>'required|string|between:7,40',
-                'email'=>'required|email|max:255|unique:users',
-                'password'=>'required|confirmed|string|min:8'
-            ]);
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string|between:7,40',
+            'email'=>'required|email|max:255|unique:users',
+            'password'=>'required|confirmed|string|min:8'
+        ]);
 
-            if ($validator->fails()){
-                return response()->json($validator->errors()->toJson(),400);
-            }
+        if ($validator->fails()){
+            return response()->json($validator->errors()->toJson(),400);
+        }
 
-            $user = User::create(array_merge(
-                $validator->validated(),
-                ['password'=>bcrypt($request->password)]
-            ));
 
-            $credentials = ['email'=>$user->email,'password'=>$user->password];
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
 
-            $token  = auth()->attempt($credentials);
+        $token = auth()->login($user);
 
-            return response()->json([
-                'message'=>'user created successfully',
-                'user'=> $user,
-                'token'=>$this->createNewToken($token)
-            ]);
-
+        return  response()->json([
+            'name'=>$user->name,
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 
     /**
@@ -98,7 +100,10 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        if(auth()->refresh()){
+        return $this->respondWithToken(auth()->refresh(),auth()->user()->name);
+        }
+        else return response()->json(['message'=>'not authorissss']);
     }
 
     /**
@@ -108,9 +113,10 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token,$userName)
     {
         return response()->json([
+            'userName'=>$userName,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
