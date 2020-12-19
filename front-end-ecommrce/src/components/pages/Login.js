@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions/authAction';
+import { login, clearError } from '../../actions/authAction';
+import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
-const Login = ({ login }) => {
+const Login = (props) => {
+  const { auth: auth, error, login } = props;
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -21,12 +23,27 @@ const Login = ({ login }) => {
       email,
       password,
     };
-    login(formData);
+    if (email.length >= 8 && password.length >= 7) login(formData);
+    if (error !== null) {
+      toast.error(error);
+    }
   };
+
+  useEffect(() => {
+    console.log(auth.isAuthenticated);
+    if (auth.isAuthenticated) {
+      props.history.push('/');
+    }
+
+    if (error !== null) {
+      toast.error(error);
+    }
+  }, [error, auth.isAuthenticated]);
 
   const { email, password } = user;
   return (
     <div className='login-screen'>
+      <ToastContainer />
       <section className='login-info'>
         <h1>Welcome to ElectronStore</h1>
         <p>Here you can find all smart products </p>
@@ -41,6 +58,7 @@ const Login = ({ login }) => {
               name='email'
               value={email}
               onChange={onChange}
+              required
             />
           </div>
           <div className='form-controll'>
@@ -49,6 +67,7 @@ const Login = ({ login }) => {
               type='password'
               name='password'
               value={password}
+              required
               onChange={onChange}
             />
           </div>
@@ -67,5 +86,9 @@ const Login = ({ login }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  error: state.auth.error,
+  auth: state.auth,
+});
 
-export default connect(null, { login })(Login);
+export default connect(mapStateToProps, { login })(Login);

@@ -8,8 +8,11 @@ const Register = ({ register }) => {
     name: '',
     email: '',
     password: '',
-    password2: '',
+    password_confirmation: '',
   });
+
+  const [error, setError] = useState({});
+
   const onChange = (e) => {
     setUser({
       ...user,
@@ -19,19 +22,22 @@ const Register = ({ register }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (password !== password2) {
+    if (password !== password_confirmation) {
       console.log('passwords do not match');
     } else {
+      console.log('subb');
+
       const formData = {
         name,
         email,
         password,
+        password_confirmation,
       };
       register(formData);
     }
   };
 
-  const { email, password, name, password2 } = user;
+  const { email, password, name, password_confirmation } = user;
   return (
     <div className='login-screen'>
       <section className='login-info'>
@@ -42,7 +48,7 @@ const Register = ({ register }) => {
         <h1>Register</h1>
         <form onSubmit={onSubmit}>
           <div className='form-controll'>
-            <label htmlFor='usernamme'>User Name</label>
+            <label htmlFor='name'>User Name</label>
             <input type='text' name='name' value={name} onChange={onChange} />
           </div>
           <div className='form-controll'>
@@ -67,8 +73,8 @@ const Register = ({ register }) => {
             <label htmlFor='confirm-password'>Confirme Password</label>
             <input
               type='password'
-              name='password2'
-              value={password2}
+              name='password_confirmation'
+              value={password_confirmation}
               onChange={onChange}
             />
           </div>

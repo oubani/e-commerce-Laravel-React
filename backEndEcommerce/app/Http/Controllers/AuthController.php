@@ -32,7 +32,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'credentials do not match please enter a validate email and password '], 401);
+            return response()->json(['msg' => 'credentials do not match '], 400);
         }
 
 
@@ -100,10 +100,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        if(auth()->refresh()){
         return $this->respondWithToken(auth()->refresh(),auth()->user()->name);
-        }
-        else return response()->json(['message'=>'not authorissss']);
     }
 
     /**

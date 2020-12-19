@@ -59,7 +59,7 @@ const Navbar = ({
             </li>
             {user !== null && isAuthenticated ? (
               <li>
-                <Link to='/dashboard'> {user.name} </Link>
+                <Link to='/dashboard'> {user} </Link>
               </li>
             ) : (
               <Fragment>

@@ -1,10 +1,13 @@
 // Auth types
 export const LOGIN = 'LOGIN';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOG_OUT = 'LOG_OUT';
 export const REGISTER = 'REGISTER';
+export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const SETLOADING = 'SETLOADING';
 export const SETERROR = 'SETERROR';
 export const CHECK_LOGIN = 'CHECK_LOGIN';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 // Products types
 export const GETNEWPRODUCTS = 'NEWPRODUCTS';
