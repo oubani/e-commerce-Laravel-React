@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.access_token,
-        user: action.payload.userName,
+        user: action.payload.name,
         isAuthenticated: true,
       };
     case REGISTER:
@@ -35,10 +35,11 @@ export default (state = initialState, action) => {
         action.payload.userName,
         true
       );
+      console.log(action.payload);
       return {
         ...state,
         token: action.payload.access_token,
-        user: action.payload.user,
+        user: action.payload.name,
         isAuthenticated: true,
       };
     case CHECK_LOGIN:
@@ -50,6 +51,11 @@ export default (state = initialState, action) => {
         token: token,
         user: user,
         isAuthenticated: action.payload,
+      };
+    case REGISTER_FAILED:
+      return {
+        ...state,
+        error: JSON.parse(action.payload),
       };
     case LOGIN_FAILED:
       return {

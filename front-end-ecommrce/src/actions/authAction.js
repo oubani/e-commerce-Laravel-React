@@ -5,6 +5,7 @@ import {
   CHECK_LOGIN,
   LOGIN_FAILED,
   CLEAR_ERRORS,
+  REGISTER_FAILED,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -35,8 +36,6 @@ export const login = (formData) => async (dispatch) => {
   }
 };
 export const register = (formData) => async (dispatch) => {
-  console.log(formData);
-
   try {
     const res = await axios.post(`${link}/auth/register`, formData, config);
     dispatch({
@@ -45,10 +44,10 @@ export const register = (formData) => async (dispatch) => {
     });
   } catch (err) {
     console.log(err.response.data.msg);
-    // dispatch({
-    //   type: LOGS_ERROR,
-    //   payload: err.response.statusText,
-    // });
+    dispatch({
+      type: REGISTER_FAILED,
+      payload: err.response.data,
+    });
   }
 };
 

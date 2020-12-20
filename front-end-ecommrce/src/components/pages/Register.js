@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 import { register } from '../../actions/authAction';
 import { Link } from 'react-router-dom';
 
-const Register = ({ register }) => {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-  });
+const Register = (props) => {
+  const {
+    register,
+    auth: { isAuthenticated, error },
+  } = props;
 
-  const [error, setError] = useState({});
+  const [user, setUser] = useState({
+    name: 'oubani ayoub',
+    email: 'test@gmail.com',
+    password: 'testtest',
+    password_confirmation: 'testtest',
+  });
 
   const onChange = (e) => {
     setUser({
@@ -23,7 +27,9 @@ const Register = ({ register }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password_confirmation) {
-      console.log('passwords do not match');
+      toast.warning('passwords do not match');
+    } else if (name.length < 7) {
+      toast.warning('Enter a name longer than 7 characters ');
     } else {
       console.log('subb');
 
@@ -37,9 +43,20 @@ const Register = ({ register }) => {
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/dashboard');
+    }
+    if (error !== null) {
+      console.log(error.email);
+      toast.warning(error.email[0]);
+    }
+  }, [error, isAuthenticated]);
+
   const { email, password, name, password_confirmation } = user;
   return (
     <div className='login-screen'>
+      <ToastContainer />
       <section className='login-info'>
         <h1>Welcome to ElectronStore</h1>
         <p>Here you can find all smart products </p>
@@ -49,7 +66,13 @@ const Register = ({ register }) => {
         <form onSubmit={onSubmit}>
           <div className='form-controll'>
             <label htmlFor='name'>User Name</label>
-            <input type='text' name='name' value={name} onChange={onChange} />
+            <input
+              type='text'
+              name='name'
+              value={name}
+              onChange={onChange}
+              required
+            />
           </div>
           <div className='form-controll'>
             <label htmlFor='email'>Email </label>
@@ -58,6 +81,7 @@ const Register = ({ register }) => {
               name='email'
               value={email}
               onChange={onChange}
+              required
             />
           </div>
           <div className='form-controll'>
@@ -67,6 +91,7 @@ const Register = ({ register }) => {
               name='password'
               value={password}
               onChange={onChange}
+              required
             />
           </div>
           <div className='form-controll'>
@@ -76,6 +101,7 @@ const Register = ({ register }) => {
               name='password_confirmation'
               value={password_confirmation}
               onChange={onChange}
+              required
             />
           </div>
           <input
@@ -93,5 +119,8 @@ const Register = ({ register }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default connect(null, { register })(Register);
+export default connect(mapStateToProps, { register })(Register);

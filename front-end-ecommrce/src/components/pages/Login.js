@@ -32,7 +32,7 @@ const Login = (props) => {
   useEffect(() => {
     console.log(auth.isAuthenticated);
     if (auth.isAuthenticated) {
-      props.history.push('/');
+      props.history.push('/dashboard');
     }
 
     if (error !== null) {
