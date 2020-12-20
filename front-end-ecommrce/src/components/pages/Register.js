@@ -11,10 +11,10 @@ const Register = (props) => {
   } = props;
 
   const [user, setUser] = useState({
-    name: 'oubani ayoub',
-    email: 'test@gmail.com',
-    password: 'testtest',
-    password_confirmation: 'testtest',
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
   });
 
   const onChange = (e) => {

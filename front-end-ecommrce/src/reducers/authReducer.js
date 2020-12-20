@@ -26,15 +26,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.access_token,
-        user: action.payload.name,
+        user: action.payload.userName,
         isAuthenticated: true,
       };
     case REGISTER:
-      setLocalstorage(
-        action.payload.access_token,
-        action.payload.userName,
-        true
-      );
+      setLocalstorage(action.payload.access_token, action.payload.name, true);
       console.log(action.payload);
       return {
         ...state,
