@@ -3,6 +3,7 @@ import {
   LOG_OUT,
   REGISTER,
   CHECK_LOGIN,
+  CHECK_ADMIN,
   LOGIN_FAILED,
   CLEAR_ERRORS,
   REGISTER_FAILED,
@@ -10,11 +11,13 @@ import {
 import axios from 'axios';
 
 const link = process.env.REACT_APP_DOMAIN;
+const token = localStorage.getItem('token');
 
 const config = {
   headers: {
     'Content-Type': 'application/json',
   },
+  Authorization: `Bearer ${token}`,
 };
 
 export const login = (formData) => async (dispatch) => {
@@ -67,6 +70,29 @@ export const checkLogin = (test) => async (dispatch) => {
       type: CHECK_LOGIN,
       payload: true,
     });
+};
+
+export const checkAdmin = () => async (dispatch) => {
+  console.log(` request sent | token : ${token}`);
+
+  try {
+    const response = axios.post(
+      '/auth/checkAdmin',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer  ${token}`,
+        },
+      }
+    );
+    console.log(` response : ${response}`);
+    dispatch({
+      type: CHECK_ADMIN,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log('faild ');
+  }
 };
 
 export const refresh = (token) => async (dispatch) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { login, clearError } from '../../actions/authAction';
 import { ToastContainer, toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const Login = (props) => {
   const { auth: auth, error, login } = props;
@@ -30,7 +30,6 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    console.log(auth.isAuthenticated);
     if (auth.isAuthenticated) {
       props.history.push('/dashboard');
     }

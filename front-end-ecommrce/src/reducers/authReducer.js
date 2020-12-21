@@ -3,6 +3,7 @@ import {
   CHECK_LOGIN,
   REGISTER,
   REGISTER_FAIL,
+  CHECK_ADMIN,
   LOGIN_FAILED,
   REGISTER_FAILED,
   CLEAR_ERRORS,
@@ -10,6 +11,7 @@ import {
 const initialState = {
   token: null,
   isAuthenticated: false,
+  isAdmin: null,
   user: null,
   error: null,
 };
@@ -47,6 +49,11 @@ export default (state = initialState, action) => {
         token: token,
         user: user,
         isAuthenticated: action.payload,
+      };
+    case CHECK_ADMIN:
+      return {
+        ...state,
+        isAdmin: action.payload,
       };
     case REGISTER_FAILED:
       return {

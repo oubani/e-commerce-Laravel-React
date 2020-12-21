@@ -8,6 +8,7 @@ export const SETLOADING = 'SETLOADING';
 export const SETERROR = 'SETERROR';
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const CHECK_ADMIN = 'CHECK_ADMIN';
 
 // Products types
 export const GETNEWPRODUCTS = 'NEWPRODUCTS';

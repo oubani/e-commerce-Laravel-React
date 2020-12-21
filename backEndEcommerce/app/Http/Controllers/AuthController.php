@@ -59,6 +59,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'role'=>0
         ]);
 
         $token = auth()->login($user);
@@ -101,6 +102,16 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh(),auth()->user()->name);
+    }
+
+
+    public function checkAdmin() {
+
+        if (auth()->user()->role === 1) {
+            
+            return response()->json(['role'=>true]);
+        }else 
+        return response()->json(['role'=>false]);
     }
 
     /**

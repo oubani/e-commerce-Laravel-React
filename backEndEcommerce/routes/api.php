@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('users', 'UserController@users');
-});
 
 Route::get('search','SearchController@search');
 Route::get('search7',function(){return 'search';});
@@ -32,4 +29,5 @@ Route::group([
      Route::post('logout', 'AuthController@logout');
      Route::post('refresh', 'AuthController@refresh');
      Route::post('me', 'AuthController@me');
- });
+     Route::post('checkAdmin','AuthController@checkAdmin'); // return true if admin
+    });
