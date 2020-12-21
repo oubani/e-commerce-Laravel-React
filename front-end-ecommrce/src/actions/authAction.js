@@ -21,8 +21,6 @@ const config = {
 };
 
 export const login = (formData) => async (dispatch) => {
-  console.log(formData);
-
   try {
     const res = await axios.post(`${link}/auth/login`, formData, config);
     console.log(res.data);
@@ -35,7 +33,6 @@ export const login = (formData) => async (dispatch) => {
       type: LOGIN_FAILED,
       payload: error.response.data.msg,
     });
-    console.log(error.response.data.msg);
   }
 };
 export const register = (formData) => async (dispatch) => {
