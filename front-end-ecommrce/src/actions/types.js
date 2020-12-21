@@ -15,6 +15,11 @@ export const GETNEWPRODUCTS = 'NEWPRODUCTS';
 export const GETMOSTORDERED = 'MOSTORDERED';
 export const GETHIGHPROMOTION = 'HIGHPROMOTION';
 
+// Favorites types
+
+export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
+export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
+
 // Cart Types
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const UPDATE_CART = 'UPDATE_CART';
