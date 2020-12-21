@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case ADD_TO_FAVORITE:
       return {
         ...state,
-        favorites: state.favorites.push(action.payload),
+        favorites: [...state.favorites, action.payload],
       };
     case REMOVE_FROM_FAVORITE:
       return {

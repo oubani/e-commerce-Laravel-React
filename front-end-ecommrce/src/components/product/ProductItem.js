@@ -3,34 +3,27 @@ import { FaHeart, FaCartPlus, FaRegHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToCart } from '../../actions/cartAction';
+import {
+  addToFavorite,
+  removeFromFavorites,
+} from '../../actions/favoriteAction';
 
-const ProductItem = ({ product, addToCart }) => {
+const ProductItem = ({
+  favorites,
+  product,
+  addToCart,
+  addToFavorite,
+  removeFromFavorites,
+}) => {
   const { id, name, prix, thumbnail } = product;
 
-  if (localStorage.getItem('favorites') === null) {
-    let LocalFavorites = [];
-    localStorage.setItem('favorites', JSON.stringify(LocalFavorites));
-  }
+  const favoritesListe = favorites.favorites;
+  console.log(favoritesListe);
 
-  const addToFavorite = (id) => {
-    if (localStorage.getItem('favorites') === null) {
-      let LocalFavorites = [];
-      localStorage.setItem('favorites', JSON.stringify(LocalFavorites));
-    }
-    var localFavorites = JSON.parse(localStorage.getItem('favorites'));
-
-    if (!localFavorites.includes(id)) {
-      localFavorites.push(id);
-      localStorage.setItem('favorites', JSON.stringify(localFavorites));
-    }
-  };
-  const removeFromFavorite = (id) => {
-    var localFavorites = JSON.parse(localStorage.getItem('favorites'));
-    const newListe = localFavorites.filter((n) => (n !== id ? id : ''));
-    localStorage.setItem('favorites', JSON.stringify(newListe));
-  };
-
-  const favorites = JSON.parse(localStorage.getItem('favorites'));
+  // const handleAddToFavorite = (id) => {
+  //   addToFavorite(id);
+  // };
+  // const removeFromFavorite = (id) => {};
 
   const addClick = ({ product }, qte = 1) => {
     const newProduct = {
@@ -59,7 +52,7 @@ const ProductItem = ({ product, addToCart }) => {
           <FaCartPlus className='clickedIcon' onClick={addClick} />
         </p>
         <p>
-          {!favorites.includes(id) ? (
+          {!favoritesListe.includes(id) ? (
             <FaRegHeart
               className='clickedIcon'
               onClick={() => addToFavorite(id)}
@@ -67,7 +60,7 @@ const ProductItem = ({ product, addToCart }) => {
           ) : (
             <FaHeart
               className='clickedIcon'
-              onClick={() => removeFromFavorite(id)}
+              onClick={() => removeFromFavorites(id)}
             />
           )}
         </p>
@@ -75,5 +68,12 @@ const ProductItem = ({ product, addToCart }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  favorites: state.favorite,
+});
 
-export default connect(null, { addToCart })(ProductItem);
+export default connect(mapStateToProps, {
+  addToCart,
+  addToFavorite,
+  removeFromFavorites,
+})(ProductItem);
