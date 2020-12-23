@@ -17,15 +17,15 @@ const authAxios = axios.create({
 });
 // insted of calling axios we call authAxios
 
-axios.interceptors.request.use(
-  (config) => {
-    config.headers.authorization = `Bearer ${accessToken}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.request.use(
+//   (config) => {
+//     config.headers.authorization = `Bearer ${accessToken}`;
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 export const getUserFavorite = () => async (dispatch) => {
   try {
@@ -65,10 +65,11 @@ export const removeFromFavorites = (id) => async (dispatch) => {
     const res = await authAxios.post(`${link}/removeFromFavorite`, {
       product_id: id,
     });
-    console.log(res);
     dispatch({
       type: REMOVE_FROM_FAVORITE,
       payload: id,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log('error' + error);
+  }
 };
