@@ -9,7 +9,7 @@ import {
 } from '../../actions/favoriteAction';
 
 const ProductItem = ({
-  favorites,
+  favorite,
   product,
   addToCart,
   addToFavorite,
@@ -17,13 +17,7 @@ const ProductItem = ({
 }) => {
   const { id, name, prix, thumbnail } = product;
 
-  const favoritesListe = favorites.favorites;
-  console.log(favoritesListe);
-
-  // const handleAddToFavorite = (id) => {
-  //   addToFavorite(id);
-  // };
-  // const removeFromFavorite = (id) => {};
+  const favoritesListe = favorite.favorites;
 
   const addClick = ({ product }, qte = 1) => {
     const newProduct = {
@@ -69,7 +63,7 @@ const ProductItem = ({
   );
 };
 const mapStateToProps = (state) => ({
-  favorites: state.favorite,
+  favorite: state.favorite,
 });
 
 export default connect(mapStateToProps, {

@@ -1,4 +1,8 @@
-import { ADD_TO_FAVORITE, REMOVE_FROM_FAVORITE } from '../actions/types';
+import {
+  ADD_TO_FAVORITE,
+  REMOVE_FROM_FAVORITE,
+  GET_FAVORITE,
+} from '../actions/types';
 
 const initialState = {
   favorites: [],
@@ -6,6 +10,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_FAVORITE:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
     case ADD_TO_FAVORITE:
       return {
         ...state,

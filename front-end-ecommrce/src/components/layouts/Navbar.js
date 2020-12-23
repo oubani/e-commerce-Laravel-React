@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { checkLogin } from '../../actions/authAction';
+import { getUserFavorite } from '../../actions/favoriteAction';
 
 const Navbar = ({
   auth: { user, isAuthenticated },
   cart: { cart },
   checkLogin,
+  getUserFavorite,
 }) => {
   // check if user is logeed in
   useEffect(() => {
     checkLogin();
+    getUserFavorite();
   }, []);
 
   // search value
@@ -81,4 +84,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   cart: state.cart,
 });
-export default connect(mapStateToProps, { checkLogin })(Navbar);
+export default connect(mapStateToProps, { checkLogin, getUserFavorite })(
+  Navbar
+);

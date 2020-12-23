@@ -31,3 +31,10 @@ Route::group([
      Route::post('me', 'AuthController@me');
      Route::post('checkAdmin','AuthController@checkAdmin'); // return true if admin
     });
+
+Route::group(['middleware' => 'api'],function(){
+    Route::post('getUserFavorite','FavoriteController@index');
+    Route::post('addToFavorite','FavoriteController@addToFavorite');
+    Route::post('removeFromFavorite','FavoriteController@removeFromFavorite');
+});
+
