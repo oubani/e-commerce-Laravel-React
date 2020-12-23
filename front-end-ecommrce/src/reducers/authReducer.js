@@ -2,7 +2,6 @@ import {
   LOGIN,
   CHECK_LOGIN,
   REGISTER,
-  REGISTER_FAIL,
   CHECK_ADMIN,
   LOGIN_FAILED,
   REGISTER_FAILED,
@@ -51,6 +50,7 @@ export default (state = initialState, action) => {
         isAuthenticated: action.payload,
       };
     case CHECK_ADMIN:
+      console.log('he is ' + action.payload);
       return {
         ...state,
         isAdmin: action.payload,

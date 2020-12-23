@@ -6,7 +6,7 @@ import { checkLogin } from '../../actions/authAction';
 import { getUserFavorite } from '../../actions/favoriteAction';
 
 const Navbar = ({
-  auth: { user, isAuthenticated },
+  auth: { user, isAuthenticated, isAdmin },
   cart: { cart },
   checkLogin,
   getUserFavorite,
@@ -15,7 +15,7 @@ const Navbar = ({
   useEffect(() => {
     checkLogin();
     getUserFavorite();
-  }, []);
+  }, [checkLogin, getUserFavorite]);
 
   // search value
   const [search, setSearch] = useState('');
@@ -61,9 +61,16 @@ const Navbar = ({
               </Link>
             </li>
             {user !== null && isAuthenticated ? (
-              <li>
-                <Link to='/dashboard'> {user} </Link>
-              </li>
+              <div class='dropdown'>
+                <Link to='/dashboard' style={linkStyle}>
+                  {' '}
+                  {user}{' '}
+                </Link>
+                <div class='dropdown-content'>
+                  <Link to='/dashboard'> Dashboard </Link>
+                  <Link to='/'>Log out</Link>
+                </div>
+              </div>
             ) : (
               <Fragment>
                 <li>
@@ -80,6 +87,12 @@ const Navbar = ({
     </div>
   );
 };
+
+const linkStyle = {
+  fontSize: '18px',
+  color: '#f5f0e1',
+};
+
 const mapStateToProps = (state) => ({
   auth: state.auth,
   cart: state.cart,

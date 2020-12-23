@@ -65,6 +65,7 @@ export const removeFromFavorites = (id) => async (dispatch) => {
     const res = await authAxios.post(`${link}/removeFromFavorite`, {
       product_id: id,
     });
+    console.log(res);
     dispatch({
       type: REMOVE_FROM_FAVORITE,
       payload: id,

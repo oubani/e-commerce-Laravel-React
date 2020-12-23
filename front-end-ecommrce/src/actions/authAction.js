@@ -13,6 +13,13 @@ import axios from 'axios';
 const link = process.env.REACT_APP_DOMAIN;
 const token = localStorage.getItem('token');
 
+const authAxios = axios.create({
+  baseURL: link,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -69,22 +76,12 @@ export const checkLogin = (test) => async (dispatch) => {
 };
 
 export const checkAdmin = () => async (dispatch) => {
-  console.log(` request sent | token : ${token}`);
-
   try {
-    const response = axios.post(
-      '/auth/checkAdmin',
-      {},
-      {
-        headers: {
-          Authorization: `Bearer  ${token}`,
-        },
-      }
-    );
-    console.log(` response : ${response}`);
+    const response = await authAxios.post('/auth/checkAdmin');
+    console.log('response' + response.data.role);
     dispatch({
       type: CHECK_ADMIN,
-      payload: response.data,
+      payload: response.data.role,
     });
   } catch (error) {
     console.log('faild ');
@@ -96,8 +93,22 @@ export const refresh = (token) => async (dispatch) => {
     const newToken = axios.post(`${link}/auth/refresh`, { token }, config);
     dispatch({
       type: '',
+      payload: newToken,
     });
   } catch (error) {}
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    const res = await authAxios.post(`${link}/auth/logout`);
+
+    dispatch({
+      type: LOG_OUT,
+      payload: res,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const clearError = () => async (dispatch) => {
