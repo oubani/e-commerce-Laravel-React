@@ -13,6 +13,7 @@ import Dashdoard from './components/pages/dashboard/Dashdoard';
 // components
 import Navbar from './components/layouts/Navbar';
 import './App.css';
+import AddProductPage from './components/pages/AddProductPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/product/:id' component={ProductPage} />
           <Route path='/search' component={SearchPage} />
           <Route path='/Dashboard' component={Dashdoard} />
+          <Route path='/addProduct' component={AddProductPage} />
         </Switch>
         {/* <Footer /> */}
       </Router>

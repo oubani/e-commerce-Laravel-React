@@ -15,9 +15,8 @@ const FavoritesPage = ({ favorite }) => {
           ))
         ) : (
           <p>
-            {' '}
-            You don't have any favorite items <br />{' '}
-            <Link to='/'> See products </Link>{' '}
+            You don't have any favorite items <br />
+            <Link to='/'> See products </Link>
           </p>
         )}
       </div>
