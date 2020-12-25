@@ -11,4 +11,7 @@ export const authApi = axios.create({
   },
 });
 
-export const getCategories = async () => {};
+export const getCategories = async () => {
+  const res = await axios.get('/category');
+  return res.data.cat;
+};

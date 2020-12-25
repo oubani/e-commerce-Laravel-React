@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import { ToastContainer, toast } from 'react-toastify';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -15,6 +15,8 @@ const AddProductPage = () => {
     { id: 3, name: 'Headphone' },
     { id: 6, name: 'TV' },
   ]);
+
+  useEffect(() => {}, []);
 
   return (
     <>
