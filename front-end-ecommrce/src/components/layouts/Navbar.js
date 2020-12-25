@@ -61,12 +61,12 @@ const Navbar = ({
               </Link>
             </li>
             {user !== null && isAuthenticated ? (
-              <div class='dropdown'>
+              <div className='dropdown'>
                 <Link to='/dashboard' style={linkStyle}>
                   {' '}
                   {user}{' '}
                 </Link>
-                <div class='dropdown-content'>
+                <div className='dropdown-content'>
                   <Link to='/dashboard'> Dashboard </Link>
                   <Link to='/'>Log out</Link>
                 </div>

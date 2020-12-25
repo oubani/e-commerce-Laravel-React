@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Traits\GeneralTraits;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class ProductController extends Controller
 {
+
+    use GeneralTraits;
+
     /**
      * Display a listing of the new products.
      *
@@ -71,6 +76,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $product = new Product();
+
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->prix = $request->prix;
+            $product->stock = $request->stock;
+            $product->category_id = $request->category_id;
+            $product->thumbnail = $request->thumbnail;
+            $product->save();
+            return $this->returnSuccess(200,'product added ');
+        }catch (Exception $ex) {
+            return response()->json(['msg'=>"product add faild { $ex}"],400);
+        }
     }
 
     /**

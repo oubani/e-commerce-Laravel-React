@@ -36,5 +36,6 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('getUserFavorite','FavoriteController@index');
     Route::post('addToFavorite','FavoriteController@addToFavorite');
     Route::post('removeFromFavorite','FavoriteController@removeFromFavorite');
+    Route::post('/addProduct','ProductController@store');
 });
 

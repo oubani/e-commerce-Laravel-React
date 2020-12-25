@@ -17,4 +17,11 @@ trait GeneralTraits{
         ]);
     }
 
+    public function returnSuccess($error,$message){
+        return response()->json([
+            'error'=>200,
+            'message'=>$message
+        ]);
+    }
+
 }

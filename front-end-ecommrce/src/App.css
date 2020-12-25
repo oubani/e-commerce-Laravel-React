@@ -278,3 +278,6 @@ input[type='number'] {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+.addForm > div {
+  flex: 0 49%;
+}
