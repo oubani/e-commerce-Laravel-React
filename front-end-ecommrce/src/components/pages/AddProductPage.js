@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import { ToastContainer, toast } from 'react-toastify';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { authApi } from '../../Api/Api';
+import { authApi, getCategories } from '../../Api/Api';
 import { toast, ToastContainer } from 'react-toastify';
 
 const AddProductPage = () => {
@@ -16,7 +16,15 @@ const AddProductPage = () => {
     { id: 6, name: 'TV' },
   ]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getCategories();
+      setCategories(res.data.categories);
+    };
+
+    // call function
+    getData();
+  }, []);
 
   return (
     <>
