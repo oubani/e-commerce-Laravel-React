@@ -107,7 +107,7 @@ export const logout = () => async (dispatch) => {
       payload: res,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

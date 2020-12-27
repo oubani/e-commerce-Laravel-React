@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { checkLogin } from '../../actions/authAction';
+import { checkLogin, logout } from '../../actions/authAction';
 import { getUserFavorite } from '../../actions/favoriteAction';
 
 const Navbar = ({
-  auth: { user, isAuthenticated, isAdmin },
+  auth: { user, isAuthenticated, isAdmin, logout },
   cart: { cart },
   checkLogin,
   getUserFavorite,
@@ -23,6 +23,10 @@ const Navbar = ({
   // handle Submit Search
   const handleSearch = () => {
     window.location = `/search?search=${search}`;
+  };
+
+  const handleLogOutClick = () => {
+    logout();
   };
 
   return (
@@ -68,7 +72,11 @@ const Navbar = ({
                 </Link>
                 <div className='dropdown-content'>
                   <Link to='/dashboard'> Dashboard </Link>
-                  <Link to='/'>Log out</Link>
+                  <Link to='/favorites'>Favorite</Link>
+                  <Link to='/addProduct'>Add Product</Link>
+                  <Link to='/' onClick={handleLogOutClick}>
+                    Log out
+                  </Link>
                 </div>
               </div>
             ) : (
@@ -97,6 +105,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   cart: state.cart,
 });
-export default connect(mapStateToProps, { checkLogin, getUserFavorite })(
-  Navbar
-);
+export default connect(mapStateToProps, {
+  checkLogin,
+  getUserFavorite,
+  logout,
+})(Navbar);

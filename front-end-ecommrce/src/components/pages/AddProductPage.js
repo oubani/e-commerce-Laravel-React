@@ -16,15 +16,15 @@ const AddProductPage = () => {
     { id: 6, name: 'TV' },
   ]);
 
-  useEffect(() => {
-    const getData = async () => {
-      const res = await getCategories();
-      setCategories(res.data.categories);
-    };
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const res = await getCategories();
+  //     setCategories(res.data.categories);
+  //   };
 
-    // call function
-    getData();
-  }, []);
+  //   // call function
+  //   getData();
+  // }, []);
 
   return (
     <>
