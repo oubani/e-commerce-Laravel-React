@@ -30,7 +30,7 @@ const authAxios = axios.create({
 export const getUserFavorite = () => async (dispatch) => {
   try {
     const res = await authAxios.post(`${link}/getUserFavorite`);
-    console.log(res.data.fav);
+
     dispatch({
       type: GET_FAVORITE,
       payload: res.data.fav,

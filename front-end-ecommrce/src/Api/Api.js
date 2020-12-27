@@ -12,6 +12,14 @@ export const authApi = axios.create({
 });
 
 export const getCategories = async () => {
-  const res = await axios.get('/category');
-  return res.data.cat;
+  const res = await axios
+    .get(`${link}/category`)
+    .then((fetchedData) => {
+      return fetchedData.data.categories;
+    })
+    .catch((e) => {
+      console.log('error' + e);
+      return 'erorr';
+    });
+  return res;
 };

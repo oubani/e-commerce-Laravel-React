@@ -9,22 +9,18 @@ import { toast, ToastContainer } from 'react-toastify';
 const AddProductPage = () => {
   // const link = process.env.REACT_APP_DOMAIN;
 
-  const [categories, setCategories] = useState([
-    { id: 1, name: 'phone' },
-    { id: 2, name: 'Camera' },
-    { id: 3, name: 'Headphone' },
-    { id: 6, name: 'TV' },
-  ]);
+  const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const res = await getCategories();
-  //     setCategories(res.data.categories);
-  //   };
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getCategories();
+      console.log('results ::=======>' + res);
+      setCategories(res);
+    };
 
-  //   // call function
-  //   getData();
-  // }, []);
+    // call function
+    getData();
+  }, []);
 
   return (
     <>
@@ -157,11 +153,12 @@ const AddProductPage = () => {
                   required
                 >
                   <option value='0'>select a category</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories.length > 0 &&
+                    categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                 </Field>
                 <p style={styles.errorMessage}>
                   <ErrorMessage name='category_id' />
