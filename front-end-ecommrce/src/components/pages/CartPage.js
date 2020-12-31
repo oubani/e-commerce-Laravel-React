@@ -28,7 +28,6 @@ const CartPage = ({
 
   // validate order function
   const validateOrder = async (token) => {
-    console.log(token);
     if (address !== '' && cart.length > 0) {
       const body = {
         address: address,
@@ -36,8 +35,9 @@ const CartPage = ({
         token: JSON.stringify(token),
       };
 
-      const res = authApi.post('http://localhost:8000/api/order', body);
-      if ((await res).data.message == 'success') {
+      const res = await authApi.post('http://localhost:8000/api/order', body);
+      console.log(res);
+      if (res.data.message == 'success') {
         toast.success('your order is saved successfully !');
         setTimeout(() => {
           emptyCart();
@@ -129,10 +129,6 @@ const CartPage = ({
                   <Link to='/login'> Here </Link>{' '}
                 </p>
               )}
-
-              <button style={ButtonConfirmStyle} onClick={validateOrder}>
-                Confirm
-              </button>
             </td>
           </tr>
         </tbody>
