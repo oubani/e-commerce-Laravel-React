@@ -37,7 +37,7 @@ const CartPage = ({
 
       const res = await authApi.post('http://localhost:8000/api/order', body);
       console.log(res);
-      if (res.data.message == 'success') {
+      if (res.data.message === 'success') {
         toast.success('your order is saved successfully !');
         setTimeout(() => {
           emptyCart();
@@ -158,15 +158,15 @@ const ButtonStyle = {
   paddingBottom: '0.5rem',
   borderRadius: '5px',
 };
-const ButtonConfirmStyle = {
-  color: 'white',
-  letterSpacing: '3px',
-  fontSize: '1rem',
-  backgroundColor: '#2e856e',
-  padding: '0.8rem 8rem ',
-  borderRadius: '5px',
-  borderStyle: 'none',
-};
+// const ButtonConfirmStyle = {
+//   color: 'white',
+//   letterSpacing: '3px',
+//   fontSize: '1rem',
+//   backgroundColor: '#2e856e',
+//   padding: '0.8rem 8rem ',
+//   borderRadius: '5px',
+//   borderStyle: 'none',
+// };
 
 const AddressCard = {
   color: 'black',
