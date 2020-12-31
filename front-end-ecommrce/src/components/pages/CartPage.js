@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { authApi } from '../../Api/Api';
 import { connect } from 'react-redux';
 import CartItem from '../cart/CartItem';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import StripeCheckout from 'react-stripe-checkout';
 import {
   removeFromCart,
   incrementItem,
@@ -11,6 +12,7 @@ import {
   emptyCart,
 } from '../../actions/cartAction';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CartPage = ({
   cart: { cart },
@@ -22,33 +24,30 @@ const CartPage = ({
   decrementItem,
 }) => {
   // use State
-  const [address, setAdrress] = useState('تجزءة الفلاحة 2 رقم 45 الرشيدية');
+  const [address, setAdrress] = useState('nr 64 let elifillaha 2 errachidia ');
 
   // validate order function
-  const validateOrder = async () => {
+  const validateOrder = async (token) => {
+    console.log(token);
     if (address !== '' && cart.length > 0) {
-      try {
-        const config = {
-          headers: { authorization: `Bearer ${auth.token}` },
-        };
+      const body = {
+        address: address,
+        cart: JSON.stringify(cart),
+        token: JSON.stringify(token),
+      };
 
-        const body = {
-          address: address,
-          cart: JSON.stringify(cart),
-          user_id: auth.user.id,
-        };
-
-        axios.post('http://localhost:8000/api/order', body, config);
+      const res = authApi.post('http://localhost:8000/api/order', body);
+      if ((await res).data.message == 'success') {
         toast.success('your order is saved successfully !');
         setTimeout(() => {
           emptyCart();
         }, 5000);
-      } catch (er) {
-        console.log(er);
+      } else {
         toast.warning('Please try again youtr order is not complited ');
       }
     }
   };
+
   // increment and decrement items in cart
   const increment = (id) => {
     incrementItem(id);
@@ -70,11 +69,16 @@ const CartPage = ({
   cart.forEach((element) => {
     total += element.prix * element.quantity;
   });
+
   const handleEmpty = () => emptyCart();
+
   return (
     <div
       className='container'
-      style={{ display: 'flex', justifyContent: 'space-between' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
     >
       <table className='table'>
         <thead>
@@ -110,10 +114,31 @@ const CartPage = ({
               </div>
             </td>
           </tr>
+          <tr>
+            <td colSpan='6'>
+              {auth ? (
+                <StripeCheckout
+                  token={validateOrder}
+                  stripeKey='pk_test_51I4SBBE0xgzcmyARAYvR0cDzeJbVSlUHS2P0Tdas0xZeGI01Y7FUO9CMiHJrSNvmiprqhyn1Ax3gVnPIkBar3Y2o009j3IR4sT'
+                  amount={total * 10}
+                  email='oubani@gm.com'
+                />
+              ) : (
+                <p>
+                  Log in first to validate your order{' '}
+                  <Link to='/login'> Here </Link>{' '}
+                </p>
+              )}
+
+              <button style={ButtonConfirmStyle} onClick={validateOrder}>
+                Confirm
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
       <ToastContainer />
-      <div className='card' style={AddressCard}>
+      {/* <div className='card' style={AddressCard}>
         <h3>Address</h3>
         <textarea
           style={{ margin: '15px auto' }}
@@ -125,17 +150,14 @@ const CartPage = ({
           value={address}
           onChange={(e) => setAdrress(e.target.value)}
         ></textarea>
-        <button style={ButtonConfirmStyle} onClick={validateOrder}>
-          Confirm
-        </button>
-      </div>
+      </div> */}
     </div>
   );
 };
 
 const ButtonStyle = {
   color: 'white',
-  backgroundColor: '#ff3232',
+  backgroundColor: '#B80201',
   paddingTop: '0.5rem',
   paddingBottom: '0.5rem',
   borderRadius: '5px',
@@ -144,8 +166,8 @@ const ButtonConfirmStyle = {
   color: 'white',
   letterSpacing: '3px',
   fontSize: '1rem',
-  backgroundColor: '#00f00f',
-  padding: '0.8rem',
+  backgroundColor: '#2e856e',
+  padding: '0.8rem 8rem ',
   borderRadius: '5px',
   borderStyle: 'none',
 };
@@ -164,7 +186,7 @@ const AddressCard = {
 const mapStateToProps = (state) => ({
   cart: state.cart,
   product: state.product,
-  auth: state.auth,
+  auth: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

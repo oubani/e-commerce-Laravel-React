@@ -8,18 +8,25 @@ import {
   removeFromFavorites,
 } from '../../actions/favoriteAction';
 
-const ProductItem = ({
-  favorite,
-  product,
-  addToCart,
-  addToFavorite,
-  removeFromFavorites,
-}) => {
+const ProductItem = (props) => {
+  const {
+    auth,
+    favorite,
+    product,
+    addToCart,
+    addToFavorite,
+    removeFromFavorites,
+  } = props;
   const { id, name, prix, thumbnail } = product;
 
   const favoritesListe = favorite.favorites;
 
   const addClick = ({ product }, qte = 1) => {
+    console.log(props.history);
+    if (!auth) {
+      // props.history.push('/login');
+      // props.history.push('/dashboard');
+    }
     const newProduct = {
       id,
       name,
@@ -64,6 +71,7 @@ const ProductItem = ({
 };
 const mapStateToProps = (state) => ({
   favorite: state.favorite,
+  auth: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

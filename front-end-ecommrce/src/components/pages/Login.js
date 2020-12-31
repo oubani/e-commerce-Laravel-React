@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link, Redirect } from 'react-router-dom';
 
 const Login = (props) => {
-  const { auth: auth, error, login } = props;
+  const { auth, error, login } = props;
   const [user, setUser] = useState({
     email: '',
     password: '',
