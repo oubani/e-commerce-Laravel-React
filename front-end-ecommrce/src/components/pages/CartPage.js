@@ -24,7 +24,7 @@ const CartPage = ({
   decrementItem,
 }) => {
   // use State
-  const [address, setAdrress] = useState('nr 64 let elifillaha 2 errachidia ');
+  const [address, setAdrress] = useState('nr 64 let el Fillaha 2 errachidia ');
 
   // validate order function
   const validateOrder = async (token) => {

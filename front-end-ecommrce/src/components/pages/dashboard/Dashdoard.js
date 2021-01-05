@@ -12,15 +12,15 @@ const Dashdoard = (props) => {
     if (!auth.isAuthenticated) {
       props.history.push('/login');
     }
-    console.log('call checkAdmin method');
-    checkAdmin();
-    console.log(isAdmin);
+    setIsAdmin(checkAdmin());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className='container'>
+    <div>
       <h1>Dashboard page</h1>
       <p>this is it</p>
+      {isAdmin && <p></p>}
     </div>
   );
 };
