@@ -67,7 +67,7 @@ class OrderController extends Controller
 
 
     public function getOrdersStatics () {
-        $statics = Order::s;
+        $statics = Order::select('total')->groupBy('created_at')->get();
 
     return $statics;
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { checkAdmin } from '../../../actions/authAction';
+import { SideNav } from './SideNav/SideNav';
 
 const Dashdoard = (props) => {
   // distruct from props
@@ -18,9 +19,10 @@ const Dashdoard = (props) => {
 
   return (
     <div>
-      <h1>Dashboard page</h1>
-      <p>this is it</p>
-      {isAdmin && <p></p>}
+      <div style={{ display: 'flex' }}>
+        <SideNav />
+        <div style={{ flex: '5', padding: '10px' }}>jj</div>
+      </div>
     </div>
   );
 };

@@ -20,6 +20,7 @@ class ProductController extends Controller
     public function newProducts()
     {
         // get new products
+        
 
         try {
             $products = Product::orderBy('id', 'desc')->take(5)->get();
