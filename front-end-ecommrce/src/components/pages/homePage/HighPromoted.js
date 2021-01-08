@@ -7,7 +7,7 @@ const HighPromoted = ({ products: { newProducts }, getHighPromotion }) => {
   useEffect(() => {
     getHighPromotion();
     //
-  }, []);
+  }, [getHighPromotion]);
   return (
     <div className='container'>
       <h1>High Promoted</h1>

@@ -168,16 +168,16 @@ const ButtonStyle = {
 //   borderStyle: 'none',
 // };
 
-const AddressCard = {
-  color: 'black',
-  // backgroundColor: '#1E3D59',
-  marginTop: '28px',
-  padding: '10px 15px',
-  borderRadius: '5px',
-  height: 'auto',
-  display: 'flex',
-  flexDirection: 'column',
-};
+// const AddressCard = {
+//   color: 'black',
+//   // backgroundColor: '#1E3D59',
+//   marginTop: '28px',
+//   padding: '10px 15px',
+//   borderRadius: '5px',
+//   height: 'auto',
+//   display: 'flex',
+//   flexDirection: 'column',
+// };
 
 const mapStateToProps = (state) => ({
   cart: state.cart,

@@ -47,7 +47,7 @@ const ProductPage = ({ addToCart, match }) => {
     }
 
     fetchData(id);
-  }, []);
+  }, [id]);
 
   if (product) {
     // distract data

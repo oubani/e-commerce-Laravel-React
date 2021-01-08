@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { checkAdmin } from '../../../actions/authAction';
+import SoldChart from '../../charts/SoldChart';
+import VisitsChart from '../../charts/VisitsChart';
+import { Wrapper } from '../../layouts/Wrapper';
+import SoldOutProducts from '../../product/SoldOutProducts';
 import { SideNav } from './SideNav/SideNav';
 
 const Dashdoard = (props) => {
@@ -20,8 +24,14 @@ const Dashdoard = (props) => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        <SideNav />
-        <div style={{ flex: '5', padding: '10px' }}>jj</div>
+        <SideNav isAdmin={isAdmin} />
+        <div style={{ flex: '5', flexDirection: 'column', padding: '10px' }}>
+          <Wrapper column='2'>
+            <SoldChart />
+            <VisitsChart />
+          </Wrapper>
+          <SoldOutProducts />
+        </div>
       </div>
     </div>
   );

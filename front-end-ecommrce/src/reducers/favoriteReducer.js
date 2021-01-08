@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case REMOVE_FROM_FAVORITE:
       return {
         ...state,
-        favorites: state.favorites.filter((item) => item != action.payload),
+        favorites: state.favorites.filter((item) => item !== action.payload),
       };
     default:
       return state;

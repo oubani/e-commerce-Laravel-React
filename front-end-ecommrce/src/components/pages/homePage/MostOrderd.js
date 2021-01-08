@@ -7,7 +7,7 @@ const MostOrderd = ({ products: { newProducts }, getMostOrderd }) => {
   useEffect(() => {
     getMostOrderd();
     //
-  }, []);
+  }, [getMostOrderd]);
   return (
     <div className='container'>
       <h1>Most Ordered</h1>
