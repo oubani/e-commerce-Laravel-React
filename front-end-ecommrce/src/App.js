@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -14,8 +14,37 @@ import Dashdoard from './components/pages/dashboard/Dashdoard';
 import Navbar from './components/layouts/Navbar';
 import './App.css';
 import AddProductPage from './components/pages/AddProductPage';
+import axios from 'axios';
+import { link } from './Api/Api';
 
 function App() {
+  // handle visits
+
+  const splitedCookies = document.cookie.split(';');
+
+  var visitC = splitedCookies[0].split('=')[1];
+
+  const [visit, setVisit] = useState(false || visitC);
+
+  if (!visit) {
+    var ip = fetch('http://api.ipify.org/?format=json').then((results) =>
+      results.json()
+    );
+
+    var date = new Date(),
+      expires = 'expires=';
+
+    expires += date.setTime(date.getTime() + 31536000000).toString();
+
+    document.cookie = ` visit = ${true}  ; ${expires} ;path=/ `;
+    if (!ip) {
+      ip = '134:321:562:322';
+    }
+    axios.post(`${link}/visit`, { ip: '162:584:132:123' });
+
+    setVisit(true);
+  }
+
   return (
     <Provider store={store}>
       <Router>

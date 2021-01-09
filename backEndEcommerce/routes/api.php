@@ -38,5 +38,6 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('removeFromFavorite','FavoriteController@removeFromFavorite');
     Route::post('/addProduct','ProductController@store');
     Route::get('getOrdersStatics','OrderController@getOrdersStatics');
+    Route::post('/visit','VisitController@store');
 });
 
