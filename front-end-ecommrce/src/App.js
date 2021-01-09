@@ -40,7 +40,7 @@ function App() {
     if (!ip) {
       ip = '134:321:562:322';
     }
-    axios.post(`${link}/visit`, { ip: '162:584:132:123' });
+    axios.post(`${link}/visit`, { ip });
 
     setVisit(true);
   }
