@@ -16,6 +16,7 @@ import './App.css';
 import AddProductPage from './components/pages/AddProductPage';
 import axios from 'axios';
 import { link } from './Api/Api';
+import FavoritesPage from './components/pages/FavoritesPage';
 
 function App() {
   // handle visits
@@ -58,6 +59,7 @@ function App() {
           <Route path='/search' component={SearchPage} />
           <Route path='/Dashboard' component={Dashdoard} />
           <Route path='/addProduct' component={AddProductPage} />
+          <Route path='/favorites' component={FavoritesPage} />
         </Switch>
         {/* <Footer /> */}
       </Router>

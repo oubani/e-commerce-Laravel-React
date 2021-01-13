@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Http\Request;
+
 
 Route::get('search','SearchController@search');
 Route::get('search7',function(){return 'search';});
@@ -39,5 +41,10 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('/addProduct','ProductController@store');
     Route::get('getOrdersStatics','OrderController@getOrdersStatics');
     Route::post('/visit','VisitController@store');
+    Route::get('findFavoritesProducts',function (Request $request) {
+        $list =  json_decode($request->favorites);
+        $products = \App\Product::findorFail($list);
+        return $products;
+    });
 });
 

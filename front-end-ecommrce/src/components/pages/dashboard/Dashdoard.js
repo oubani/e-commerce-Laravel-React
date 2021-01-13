@@ -24,7 +24,7 @@ const Dashdoard = (props) => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        <SideNav isAdmin={isAdmin} />
+        <SideNav />
         <div style={{ flex: '5', flexDirection: 'column', padding: '10px' }}>
           <Wrapper column='2'>
             <SoldChart />

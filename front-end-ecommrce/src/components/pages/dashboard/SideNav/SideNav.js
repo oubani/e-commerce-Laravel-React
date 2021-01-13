@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { checkAdmin } from '../../../../actions/authAction';
 // import * as FaIcons from 'react-icons/fa';
 
-export const SideNav = ({ isAdmin }) => {
+export const SideNav = () => {
   const pageName = window.location.pathname.split('/').pop();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(checkAdmin());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div style={{ flex: '1' }}>
@@ -23,32 +32,39 @@ export const SideNav = ({ isAdmin }) => {
               to='/addProduct'
               active={pageName === 'addProduct' ? true : false}
             >
-              {' '}
               Add Product
             </NavLink>
-            <NavLink to='/a' active={pageName === 'promotions' ? true : false}>
-              {' '}
-              Promotions{' '}
+            <NavLink
+              to='/promotions'
+              active={pageName === 'promotions' ? true : false}
+            >
+              Promotions
             </NavLink>
             {!isAdmin ? (
-              <NavLink to='/myOrders' active={pageName === 'a' ? true : false}>
-                {' '}
-                My Orders{' '}
+              <NavLink
+                to='/myOrders'
+                active={pageName === 'myOrders' ? true : false}
+              >
+                My Orders
               </NavLink>
             ) : (
               ''
             )}
             {!isAdmin ? (
-              <NavLink to='/favorites' active={pageName === 'a' ? true : false}>
-                {' '}
-                Favorites{' '}
+              <NavLink
+                to='/favorites'
+                active={pageName === 'favorites' ? true : false}
+              >
+                Favorites
               </NavLink>
             ) : (
               ''
             )}
-            <NavLink to='/a' active={pageName === 'editOrders' ? true : false}>
-              {' '}
-              Edit Order{' '}
+            <NavLink
+              to='/editOrders'
+              active={pageName === 'editOrders' ? true : false}
+            >
+              Edit Order
             </NavLink>
             {/* {!isAdmin ? <NavLink to='/' active={pageName === 'a' ? true : false} > My Orders </NavLink> : ''} */}
           </NavMenu>
