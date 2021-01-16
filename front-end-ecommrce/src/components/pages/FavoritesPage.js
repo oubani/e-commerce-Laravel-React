@@ -28,12 +28,6 @@ const FavoritesPage = ({ favorite }) => {
         </div>
       </div>
     </div>
-
-    // <>
-    //   <div className='container'>
-    //     <pre> {JSON.stringify(favorites)}</pre>
-    //   </div>
-    // </>
   );
 };
 

@@ -25,8 +25,11 @@ export const SideNav = () => {
             >
               Dashboard
             </NavLink>
-            <NavLink to='/a' active={pageName === 'a' ? true : false}>
-              Product List
+            <NavLink
+              to='/productsListe'
+              active={pageName === 'productsListe' ? true : false}
+            >
+              Products List
             </NavLink>
             <NavLink
               to='/addProduct'
@@ -60,11 +63,8 @@ export const SideNav = () => {
             ) : (
               ''
             )}
-            <NavLink
-              to='/editOrders'
-              active={pageName === 'editOrders' ? true : false}
-            >
-              Edit Order
+            <NavLink to='/orders' active={pageName === 'orders' ? true : false}>
+              Orders
             </NavLink>
             {/* {!isAdmin ? <NavLink to='/' active={pageName === 'a' ? true : false} > My Orders </NavLink> : ''} */}
           </NavMenu>
