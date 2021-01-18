@@ -76,7 +76,8 @@ export const SideNav = () => {
 
 export const SideNavContainer = styled.div`
   width: 100%;
-  height: 83.5vh;
+  height: 100%;
+  position: sticky;
   background: var(--main-blue-color);
 `;
 

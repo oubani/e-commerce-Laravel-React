@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import { authApi, link } from '../../Api/Api';
 
 const VisitsChart = () => {
   const [dailyData, setDailyData] = useState([1, 2]);
 
+  useEffect(() => {
+    async function getVisits() {
+      const response = await authApi(`${link}/countVisits`);
+      console.log(response);
+      setDailyData(response.data);
+    }
+
+    getVisits();
+  }, []);
+
   const lineChart = dailyData.length ? (
     <Line
       data={{
-        labels: [1, 2, 3, 4, 5],
+        labels: [...dailyData.map((data) => data.date)],
         datasets: [
           {
-            data: [120, 61, 105, 123, 211],
+            data: [...dailyData.map((data) => data.count)],
             label: 'Solds $',
             borderColor: '#ff6e40',
             backgroundColor: 'rgba(0,0,0,0)',
