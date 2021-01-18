@@ -105,12 +105,14 @@ const ProductPage = ({ addToCart, match }) => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  width: '70%',
+                  width: '100%',
+                  padding: '5px 2rem',
                 }}
               >
-                <div>Quantity :</div>
+                <div style={{ flex: 1 }}>Quantity :</div>
                 <div
                   style={{
+                    flex: 1,
                     padding: '1rem 3rem',
                     margin: '1rem',
                     display: 'flex',
@@ -134,7 +136,7 @@ const ProductPage = ({ addToCart, match }) => {
                     />
                   </div>
                 </div>
-                <div>
+                <div style={{ flex: 1 }}>
                   total : <b> {productInfo.prix * quantity} Dh</b>
                 </div>
               </div>

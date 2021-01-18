@@ -19,6 +19,7 @@ import { link } from './Api/Api';
 import FavoritesPage from './components/pages/FavoritesPage';
 import ProductListePage from './components/pages/ProductListePage';
 import { OrdersPage } from './components/pages/OrdersPage';
+import Footer from './components/layouts/Footer';
 
 function App() {
   // handle visits
@@ -65,7 +66,7 @@ function App() {
           <Route path='/favorites' component={FavoritesPage} />
           <Route path='/orders' component={OrdersPage} />
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </Provider>
   );

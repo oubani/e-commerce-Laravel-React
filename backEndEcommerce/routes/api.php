@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Illuminate\Http\Request;
 
 
 Route::get('search','SearchController@search');
@@ -14,7 +13,7 @@ Route::post('order','OrderController@store');
 
 /*Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');*/
-
+Route::get('lastProduct','ProductController@lastOne');
 Route::get('products/new', 'ProductController@newProducts');
 Route::get('products/high', 'ProductController@highPromotion'); // i'll fixed it later
 Route::get('products/mostOrdered', 'ProductController@mostOrderd'); // i'll fixed it later
@@ -41,10 +40,6 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('/addProduct','ProductController@store');
     Route::get('getOrdersStatics','OrderController@getOrdersStatics');
     Route::post('/visit','VisitController@store');
-    Route::get('findFavoritesProducts',function (Request $request) {
-        $list =  json_decode($request->favorites);
-        $products = \App\Product::findorFail($list);
-        return $products;
-    });
-});
+    Route::get('/countVisits','VisitController@countVisits');
+    Route::get('findFavoritesProducts','ProductController@findFavoritesProducts');});
 

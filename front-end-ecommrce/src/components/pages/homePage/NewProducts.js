@@ -12,6 +12,7 @@ const NewProducts = ({ products: { newProducts }, getNewProducts }) => {
     <div className='container'>
       <h1>New Products</h1>
       <section className='ProductsSection'>
+        {/* <pre>{newProducts}</pre> */}
         {newProducts &&
           newProducts.map((product) => (
             <ProductItem product={product} key={product.id} />

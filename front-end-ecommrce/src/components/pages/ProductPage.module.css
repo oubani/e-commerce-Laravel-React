@@ -4,6 +4,9 @@
 .pImages {
   flex: 1;
 }
+.pImag {
+  max-width: 100%;
+}
 .pDesc {
   flex: 1;
 }
@@ -37,9 +40,6 @@
 .primaryImage {
   flex: 4;
 }
-/* .simage {
-  width: 10%;
-} */
 .sImag {
   width: 100%;
   border: rgba(0, 0, 0, 0.7) 1px solid;

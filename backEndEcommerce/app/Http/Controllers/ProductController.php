@@ -20,8 +20,6 @@ class ProductController extends Controller
     public function newProducts()
     {
         // get new products
-        
-
         try {
             $products = Product::orderBy('id', 'desc')->take(5)->get();
             return $products;
@@ -45,6 +43,15 @@ class ProductController extends Controller
             return $products;
         } catch (\Throwable $th) {
             return 'No product';
+        }
+    }
+    public function lastOne()
+    {
+        try {
+            $products = Product::all()->last();
+            return $products;
+        } catch (\Throwable $th) {
+            return response()->json('error',400) ;
         }
     }
     /**
@@ -144,5 +151,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function findFavoritesProducts(Request $request) {
+        $list =  json_decode($request->favorites);
+        $products = Product::findorFail($list);
+        return $products;
     }
 }
