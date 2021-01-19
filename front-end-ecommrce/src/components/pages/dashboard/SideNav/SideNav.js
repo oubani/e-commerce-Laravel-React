@@ -2,23 +2,36 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { checkAdmin } from '../../../../actions/authAction';
-// import * as FaIcons from 'react-icons/fa';
 
 export const SideNav = () => {
   const pageName = window.location.pathname.split('/').pop();
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [scrollValue, setScrollValue] = useState(0);
 
   useEffect(() => {
     setIsAdmin(checkAdmin());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const scrollFunction = () => {
+    if (
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
+    ) {
+      document.getElementById('navbar').style.padding = '30px 10px';
+      document.getElementById('logo').style.fontSize = '25px';
+    } else {
+      document.getElementById('navbar').style.padding = '80px 10px';
+      document.getElementById('logo').style.fontSize = '35px';
+    }
+  };
 
   return (
     <>
       <div style={{ flex: '1' }}>
         <SideNavContainer>
           <NavMenu>
+            {scrollValue}
             <NavLink
               to='/dashboard'
               active={pageName === 'dashboard' ? true : false}
@@ -77,7 +90,6 @@ export const SideNav = () => {
 export const SideNavContainer = styled.div`
   width: 100%;
   height: 100%;
-  position: sticky;
   background: var(--main-blue-color);
 `;
 

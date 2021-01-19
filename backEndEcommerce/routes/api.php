@@ -41,5 +41,8 @@ Route::group(['middleware' => 'api'],function(){
     Route::get('getOrdersStatics','OrderController@getOrdersStatics');
     Route::post('/visit','VisitController@store');
     Route::get('/countVisits','VisitController@countVisits');
-    Route::get('findFavoritesProducts','ProductController@findFavoritesProducts');});
+    Route::get('findFavoritesProducts','ProductController@findFavoritesProducts');
+
+
+});
 

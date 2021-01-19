@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { authApi, link } from '../../Api/Api';
 
 const VisitsChart = () => {
-  const [dailyData, setDailyData] = useState([1, 2]);
+  const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
     async function getVisits() {
@@ -22,7 +22,7 @@ const VisitsChart = () => {
         datasets: [
           {
             data: [...dailyData.map((data) => data.count)],
-            label: 'Solds $',
+            label: 'Visits ',
             borderColor: '#ff6e40',
             backgroundColor: 'rgba(0,0,0,0)',
           },
@@ -33,7 +33,7 @@ const VisitsChart = () => {
 
   return (
     <div>
-      <h1>Visits</h1>
+      <h1>Visits :</h1>
       {lineChart}
     </div>
   );

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Detail;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Stripe;
 
 class OrderController extends Controller
@@ -67,8 +68,17 @@ class OrderController extends Controller
 
 
     public function getOrdersStatics () {
-        $statics = Order::select('total')->groupBy('created_at')->get();
-
+        if (!auth()->user() || auth()->user()->role!==1) {
+            return response()->json('you are not authorized',401);
+        }
+        $statics = Order::SELECT([
+            DB::raw("DATE_FORMAT(created_at,'%Y-%m') AS `date`"),
+            DB::raw("SUM(total) AS `solds`")
+        ])
+            ->groupBy('date')
+            ->orderBy('date','ASC')
+            ->get()
+        ;
     return $statics;
     }
 
