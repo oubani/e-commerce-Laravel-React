@@ -11,8 +11,6 @@ Route::resource('category','CategoryController');
 Route::post('order','OrderController@store');
 
 
-/*Route::post('login', 'UserController@login');
-Route::post('register', 'UserController@register');*/
 Route::get('lastProduct','ProductController@lastOne');
 Route::get('products/new', 'ProductController@newProducts');
 Route::get('products/high', 'ProductController@highPromotion'); // i'll fixed it later
@@ -42,7 +40,7 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('/visit','VisitController@store');
     Route::get('/countVisits','VisitController@countVisits');
     Route::get('findFavoritesProducts','ProductController@findFavoritesProducts');
-
-
+    Route::get('allProducts',"ProductController@getAllProducts"); //not handled
+    Route::get('/soldOutProducts',"ProductController@soldOutProducts"); //soldoutporducts
 });
 

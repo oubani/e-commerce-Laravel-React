@@ -1,35 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { authApi, link } from '../../Api/Api';
 
 const SoldOutProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts([
-      {
-        id: 1,
-        name: 'Sony Camera Alpha IIV',
-        stock: 8,
-        thambnail: 'camera.png',
-      },
-      {
-        id: 2,
-        name: 'Samsung tv',
-        stock: 5,
-        thambnail: 'tv.webp',
-      },
-      {
-        id: 3,
-        name: 'Sony TV 4K Resolution Alpha IIV',
-        stock: 3,
-        thambnail: 'tv2.webp',
-      },
-      {
-        id: 4,
-        name: 'Camera Camera Alpha IIV',
-        stock: 1,
-        thambnail: 'camera.png',
-      },
-    ]);
+    async function getSoldOutProducts() {
+      const res = await authApi(`${link}/soldOutProducts`);
+      setProducts(res.data.products);
+    }
+
+    // call the function
+    getSoldOutProducts();
   }, []);
 
   return (
@@ -86,7 +68,7 @@ export const Product = ({ product }) => (
     <div style={{ flex: 1 }}>
       <img
         width='100%'
-        src={`http://localhost:8000/images/${product.thambnail}`}
+        src={`http://localhost:8000/images/${product.thumbnail}`}
         alt={product.name}
       />
     </div>

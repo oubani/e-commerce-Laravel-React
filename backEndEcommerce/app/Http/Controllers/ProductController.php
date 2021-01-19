@@ -54,6 +54,15 @@ class ProductController extends Controller
             return response()->json('error',400) ;
         }
     }
+
+    public function soldOutProducts()
+    {
+
+        $products = Product::orderBy('stock', 'asc')->take(5)->get();
+
+        return response()->json(['products'=>$products],200);
+    }
+
     /**
      * Display a listing of the resource.
      *
