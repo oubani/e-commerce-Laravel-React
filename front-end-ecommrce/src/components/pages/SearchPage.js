@@ -95,6 +95,7 @@ const SearchPage = () => {
 const display = {
   width: '700px',
   maxWidth: '100%',
+  marginBottom: '4rem',
 };
 
 const header = {

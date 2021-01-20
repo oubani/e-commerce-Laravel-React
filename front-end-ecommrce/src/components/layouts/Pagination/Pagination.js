@@ -13,10 +13,15 @@ const PageLink = styled.div`
   background: ${({ active }) => (active ? '#1E3D59' : '#ddd')};
 `;
 
-const Pagination = ({ currentPage, lastPage, getData, body }) => {
+const Pagination = ({ currentPage, lastPage, getData, body, setPage }) => {
   const HandleClickPage = (n) => {
     body.page = n;
-    getData(body);
+    if (setPage) {
+      setPage(n);
+    }
+    if (getData) {
+      getData(body);
+    }
   };
 
   let items = [];

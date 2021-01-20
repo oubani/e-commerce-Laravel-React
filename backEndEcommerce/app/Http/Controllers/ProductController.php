@@ -62,6 +62,13 @@ class ProductController extends Controller
 
         return response()->json(['products'=>$products],200);
     }
+    public function getAllProducts()
+    {
+
+        $products = Product::orderBy('id', 'DESC')->paginate(5);
+
+        return response()->json(['products'=>$products],200);
+    }
 
     /**
      * Display a listing of the resource.

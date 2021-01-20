@@ -82,4 +82,12 @@ class OrderController extends Controller
     return $statics;
     }
 
+    public function getOrders(Request $request){
+
+        // return $request->get('orders_type');
+        
+        $orders = Order::orderBy('created_at','DESC')->paginate(10);
+        return $orders;
+    }
+
 }
