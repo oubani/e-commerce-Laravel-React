@@ -60,8 +60,11 @@ class UserController extends Controller
         };
     }
 
-    function users()
+    function getUsers()
     {
-        return User::all();
+
+        $users = User::paginate(5);
+
+        return $users;
     }
 }

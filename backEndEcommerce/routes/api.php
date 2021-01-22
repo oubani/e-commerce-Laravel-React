@@ -40,8 +40,9 @@ Route::group(['middleware' => 'api'],function(){
     Route::post('/visit','VisitController@store');
     Route::get('/countVisits','VisitController@countVisits');
     Route::get('findFavoritesProducts','ProductController@findFavoritesProducts');
-    Route::get('allProducts',"ProductController@getAllProducts"); 
-    Route::get('/soldOutProducts',"ProductController@soldOutProducts"); 
+    Route::get('allProducts',"ProductController@getAllProducts");
+    Route::get('/soldOutProducts',"ProductController@soldOutProducts");
     Route::get('/getOrders',"OrderController@getOrders");
+    Route::get('/getUsers',"UserController@getUsers");
 });
 
