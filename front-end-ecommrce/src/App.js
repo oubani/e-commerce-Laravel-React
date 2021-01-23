@@ -20,6 +20,7 @@ import FavoritesPage from './components/pages/FavoritesPage';
 import ProductListePage from './components/pages/ProductListePage';
 import { OrdersPage } from './components/pages/OrdersPage';
 import Footer from './components/layouts/Footer';
+import UsersListe from './components/pages/UsersListe';
 
 function App() {
   // handle visits
@@ -62,6 +63,7 @@ function App() {
           <Route path='/search' component={SearchPage} />
           <Route path='/Dashboard' component={Dashdoard} />
           <Route path='/productsListe' component={ProductListePage} />
+          <Route path='/usersListe' component={UsersListe} />
           <Route path='/addProduct' component={AddProductPage} />
           <Route path='/favorites' component={FavoritesPage} />
           <Route path='/orders' component={OrdersPage} />

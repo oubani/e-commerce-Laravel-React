@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const UserListeIem = ({ user }) => {
+const UserListeIem = ({ user, upgradeUser, downgradeUser }) => {
+  const upgrade = (id) => {
+    upgradeUser(id);
+  };
+  const downgrade = (id) => {
+    downgradeUser(id);
+  };
+
+  const { id, name, role, email } = user;
+
   return (
     <div
       style={{
@@ -14,13 +23,17 @@ const UserListeIem = ({ user }) => {
         color: 'black',
       }}
     >
-      <UserTd> {user.name}</UserTd>
-      <UserTd> {user.email}</UserTd>
+      <UserTd> {name}</UserTd>
+      <UserTd> {email}</UserTd>
       <UserTd>
-        {user.role === 1 ? <p style={{ color: 'gold' }}>Admin</p> : <p>User</p>}
+        {role === 1 ? <p style={{ color: 'gold' }}>Admin</p> : <p>User</p>}
       </UserTd>
       <UserTd>
-        <Btn> Upgrade </Btn>
+        {role === 0 ? (
+          <BtnUpgrade onClick={() => upgrade(id)}>Upgrade</BtnUpgrade>
+        ) : (
+          <BtnDowngrade onClick={() => downgrade(id)}> downgrade </BtnDowngrade>
+        )}
       </UserTd>
     </div>
   );
@@ -31,7 +44,17 @@ const UserTd = styled.div`
 `;
 
 const Btn = styled.button`
-  padding: 5px 20px;
+  padding: 10px 25px;
+  cursor: pointer;
+  border: none;
+`;
+
+const BtnUpgrade = styled(Btn)`
+  background: #cdeca1;
+`;
+
+const BtnDowngrade = styled(Btn)`
+  background: #caaeea;
 `;
 
 export default UserListeIem;

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { authApi, link } from '../../Api/Api';
 import Loading from '../layouts/Loading';
 import { SideNav } from './dashboard/SideNav/SideNav';
+import { toast, ToastContainer } from 'react-toastify';
 import UserListeIem from './UserListeIem';
+import Pagination from '../layouts/Pagination/Pagination';
 
 const UsersListe = () => {
   const [users, setUsers] = useState(null);
@@ -11,6 +13,41 @@ const UsersListe = () => {
 
   const body = {
     page,
+  };
+
+  const updateLocalRole = (id, role) => {
+    let newUsers = [];
+    users.data.forEach((user) => {
+      if (user.id === id) {
+        user.role = role;
+        return user;
+      } else return user;
+    });
+    setUsers({ ...users, newUsers });
+  };
+
+  const upgradeUser = async (id) => {
+    await authApi
+      .post(`${link}/upgradeUser`, { id })
+      .then(() => {
+        toast.success('User upgraded with success ');
+        updateLocalRole(id, 1);
+      })
+      .catch(() => {
+        toast.error('Upgrade faild ');
+      });
+  };
+
+  const downgradeUser = async (id) => {
+    await authApi
+      .post(`${link}/downgradeUser`, { id })
+      .then(() => {
+        updateLocalRole(id, 0);
+        toast.success('User downgraded with success ');
+      })
+      .catch(() => {
+        toast.error('Downgrade faild ');
+      });
   };
 
   useEffect(() => {
@@ -27,6 +64,7 @@ const UsersListe = () => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
+        <ToastContainer />
         <SideNav />
         <div style={{ flex: '5', flexDirection: 'column', padding: '10px' }}>
           <h1 style={{ margin: '1rem auto' }}>Products Liste</h1>
@@ -49,12 +87,29 @@ const UsersListe = () => {
             <div style={{ flex: 2 }}>action</div>
           </div>
           {loading && <Loading />}
-          {!loading && users ? (
-            users.data.length > 0 &&
-            users.data.map((user) => <UserListeIem key={user.id} user={user} />)
-          ) : (
-            <p> there is no client </p>
-          )}
+          {!loading && users
+            ? users.data.length > 0 && (
+                <div>
+                  {users.data.map((user) => (
+                    <UserListeIem
+                      key={user.id}
+                      user={user}
+                      upgradeUser={upgradeUser}
+                      downgradeUser={downgradeUser}
+                    />
+                  ))}
+                  <div style={{ textAlign: 'center' }}>
+                    <Pagination
+                      currentPage={users.current_page}
+                      lastPage={users.last_page}
+                      // getData={getData}
+                      body={body}
+                      setPage={setPage}
+                    />
+                  </div>
+                </div>
+              )
+            : !loading && <p> there is no client </p>}
         </div>
       </div>
     </div>

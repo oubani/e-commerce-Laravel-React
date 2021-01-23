@@ -60,11 +60,37 @@ class UserController extends Controller
         };
     }
 
-    function getUsers()
+    public function getUsers()
     {
 
-        $users = User::paginate(5);
+
+        $users = User::where('id','!=',auth()->user()->id)->paginate(4);
 
         return $users;
     }
+
+    public function upgradeUser(Request $request){
+        try {
+        $user = User::findorFail($request->id);
+        $user->role = 1;
+        $user->save();
+        return 'success';
+        } catch (\Exception $e ) {
+            return response()-json(["err {$e->getMessage()} ",401]);
+        }
+    }
+
+    public function downgradeUser(Request $request){
+
+        try {
+            $user = User::findorFail($request->id);
+            $user->role = 0;
+            $user->save();
+            return 'success';
+        } catch (\Exception $e ) {
+            return response()-json(["err {$e->getMessage()} ",401]);
+        }
+
+    }
+
 }
