@@ -42,7 +42,13 @@ export const SideNav = () => {
               to='/productsListe'
               active={pageName === 'productsListe' ? true : false}
             >
-              Products List
+              Products Liste
+            </NavLink>
+            <NavLink
+              to='/usersListe'
+              active={pageName === 'usersListe' ? true : false}
+            >
+              Users Liste
             </NavLink>
             <NavLink
               to='/addProduct'

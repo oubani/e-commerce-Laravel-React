@@ -56,5 +56,8 @@ const BtnUpgrade = styled(Btn)`
 const BtnDowngrade = styled(Btn)`
   background: #caaeea;
 `;
+export const SeeBtn = styled(Btn)`
+  background: #caaeea;
+`;
 
 export default UserListeIem;

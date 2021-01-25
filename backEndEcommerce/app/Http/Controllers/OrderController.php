@@ -42,7 +42,8 @@ class OrderController extends Controller
         $order = Order::create([
             'address' =>$request->address,
             'total' => $total,
-            'user_id'=> auth()->user()->id
+            'user_id'=> auth()->user()->id,
+            'status'=>0
             ]);
 
 
@@ -84,9 +85,24 @@ class OrderController extends Controller
 
     public function getOrders(Request $request){
 
-        // return $request->get('orders_type');
-        
-        $orders = Order::orderBy('created_at','DESC')->paginate(10);
+        if (!auth()->user() || auth()->user()->role!==1) {
+            return response()->json('you are not authorized',401);
+        }
+
+        $orders = Order::query();
+
+        /*if (isset($request->get('ordersType'))) {
+             $orders->all();
+
+        }
+    */
+        if ($request->get('ordersType')!==null) {
+            $orders->where('status','=',$request->get('ordersType'));
+        }
+
+        $orders = Order::orderBy('created_at','DESC')
+            ->paginate(10);
+
         return $orders;
     }
 
