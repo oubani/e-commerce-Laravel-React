@@ -12,5 +12,10 @@ class Order extends Model
     protected $fillable = [
         'user_id', 'total', 'address','status'
     ];
-    //
+
+    // get order's detail
+    public function details() {
+        return $this->hasMany(\App\Detail::class);
+    }
+
 }

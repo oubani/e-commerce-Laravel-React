@@ -106,4 +106,18 @@ class OrderController extends Controller
         return $orders;
     }
 
+    public function  getOrderDetails(Request $request) {
+
+        try {
+            $order = Order::findorFail($request->id)->details();
+
+            return $order;
+
+        }catch (\Exception $e) {
+            return " something went wrong ${$e} ";
+        }
+
+
+    }
+
 }

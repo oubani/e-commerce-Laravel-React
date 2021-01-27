@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { authApi, link } from '../../Api/Api';
 import Loading from '../layouts/Loading';
 import { SeeBtn } from '../pages/UserListeIem';
+import { THead, TD } from '../shared/Table';
+import OrderDetail from './OrderDetail';
 
 const OrderModal = (props) => {
   const [details, setDetails] = useState(null);
@@ -48,13 +50,20 @@ const OrderModal = (props) => {
           </ModalHeader>
           <ModalBody>
             {loading && <Loading />}
-            {!loading &&
-              details &&
-              details.map((order) => (
-                <div>
-                  <div>{order.thumbnail}</div>
-                </div>
-              ))}
+            {!loading && details && (
+              <div>
+                <THead>
+                  <TD> Image </TD>
+                  <TD> Name </TD>
+                  <TD> prix </TD>
+                  <TD> Quantity </TD>
+                  <TD> Total </TD>
+                </THead>
+                {details.map((detail) => (
+                  <OrderDetail key={detail.id} detail={detail} />
+                ))}
+              </div>
+            )}
           </ModalBody>
           <ModalFooter>
             <CancleBtn onClick={() => props.onClose()}>Cancle</CancleBtn>
@@ -79,14 +88,18 @@ const Modal = styled.div`
   justify-content: center;
 `;
 const ModalContent = styled.div`
-  width: 600px;
+  max-width: 800px;
+  min-width: 600px;
+  max-height: 80%;
+  overflow: scroll;
   background: #fff;
 `;
 const ModalHeader = styled.div`
   padding: 10px;
 `;
 const ModalTitle = styled.div`
-  margin: 0;
+  font-size: 1.5rem;
+  text-align: left;
 `;
 const ModalBody = styled.div`
   padding: 10px;

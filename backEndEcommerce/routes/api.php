@@ -43,6 +43,7 @@ Route::group(['middleware' => 'api'],function(){
     Route::get('allProducts',"ProductController@getAllProducts");
     Route::get('/soldOutProducts',"ProductController@soldOutProducts");
     Route::get('/getOrders',"OrderController@getOrders");
+    Route::get('/getOrderDetails',"OrderController@getOrderDetails");
     Route::get('/getUsers',"UserController@getUsers");
     Route::post('/upgradeUser',"UserController@upgradeUser");
     Route::post('/downgradeUser',"UserController@downgradeUser");
