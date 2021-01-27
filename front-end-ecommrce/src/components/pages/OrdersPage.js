@@ -3,6 +3,7 @@ import { authApi, link } from '../../Api/Api';
 import Loading from '../layouts/Loading';
 import Pagination from '../layouts/Pagination/Pagination';
 import OrderItem from '../order/OrderItem';
+import { TD, THead } from '../shared/Table';
 import { SideNav } from './dashboard/SideNav/SideNav';
 
 export const OrdersPage = () => {
@@ -38,24 +39,13 @@ export const OrdersPage = () => {
         <SideNav />
         <div style={{ flex: '5', flexDirection: 'column', padding: '10px' }}>
           <h1 style={{ marginBottom: '2rem' }}>Orders Page : </h1>
-          <div
-            style={{
-              display: 'flex',
-              marginInline: 'auto',
-              maxWidth: '900px',
-              padding: '10px 0',
-              textAlign: 'center',
-              fontSize: '1.2rem',
-              background: 'var(--main-blue-color)',
-              color: 'var(--main-white-color)',
-            }}
-          >
-            <div style={{ flex: 2 }}>Order</div>
-            <div style={{ flex: 2 }}>address</div>
-            <div style={{ flex: 2 }}>Date Order</div>
-            <div style={{ flex: 2 }}>Status</div>
-            <div style={{ flex: 2 }}>Action</div>
-          </div>
+          <THead>
+            <TD>Order</TD>
+            <TD>address</TD>
+            <TD>Date Order</TD>
+            <TD>Status</TD>
+            <TD>Action</TD>
+          </THead>
           {loading && <Loading />}
           {!loading && orders ? (
             <div>

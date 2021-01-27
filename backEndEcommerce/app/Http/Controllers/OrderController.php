@@ -103,16 +103,32 @@ class OrderController extends Controller
         $orders = Order::orderBy('created_at','DESC')
             ->paginate(10);
 
+        /*foreach ($orders as $order) {
+            $order->created_at = $order->created_at->format('   m Y');
+        }*/
+
         return $orders;
     }
 
     public function  getOrderDetails(Request $request) {
 
         try {
-            $order = Order::findorFail($request->id)->details();
-
-            return $order;
-
+            $details= [];
+            $orderDetails = Order::find($request->get('id'))->details;
+            //return $orderDetails;
+            foreach ($orderDetails as $detail) {
+            $obj = new \stdClass();
+                $obj->quantity = $detail->quantity;
+                $product = Detail::find($detail->id)->product;
+                $obj->product_id= $product->id;
+                //return $product;
+                $obj->thumbnail= $product->thumbnail;
+                $obj->name= $product->name;
+                $obj->prix= $product->prix;
+                $obj->total=$obj->quantity*$obj->prix;
+                $details[]=$obj;
+            }
+            return  ['total'=>Order::find($request->get('id'))->total,'details'=> $details];
         }catch (\Exception $e) {
             return " something went wrong ${$e} ";
         }

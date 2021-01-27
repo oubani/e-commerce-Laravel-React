@@ -18,4 +18,11 @@ export const TBody = styled(TrTable)`
 `;
 export const TD = styled.div`
   flex: ${({ flex }) => (flex ? flex : '1')};
+  align-self: center;
+`;
+export const TDH = styled(TD)`
+  color: #fff;
+`;
+export const TDB = styled(TD)`
+  color: #000;
 `;

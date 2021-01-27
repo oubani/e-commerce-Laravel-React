@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { authApi, link } from '../../Api/Api';
 import { SeeBtn } from '../pages/UserListeIem';
 import OrderModal from './OrderModal';
 
 const OrderItem = ({ order }) => {
   const [show, setShow] = useState(false);
   const [orderId, setOrderId] = useState(null);
+  const [details, setDetails] = useState(null);
   const { id, address, created_at, status } = order;
-
+  const [loading, setLoading] = useState(false);
   // HandleClick funcion
-
   const handleClick = (id) => {
     setOrderId(id);
+    getOrderDetails(id);
     setShow(true);
   };
+
+  async function getOrderDetails(id) {
+    try {
+      setLoading(true);
+      const res = await authApi.get(`${link}/getOrderDetails?id=${id}`);
+      setDetails(res.data);
+      setLoading(false);
+    } catch (error) {}
+  }
 
   const onClose = () => {
     setShow(false);
@@ -21,7 +32,12 @@ const OrderItem = ({ order }) => {
 
   return (
     <OrderLine>
-      <OrderModal show={show} onClose={onClose} orderId={orderId} />
+      <OrderModal
+        show={show}
+        onClose={onClose}
+        loading={loading}
+        details={details}
+      />
       <OrderTd>{id}</OrderTd>
       <OrderTd>{address}</OrderTd>
       <OrderTd>{created_at}</OrderTd>
@@ -32,7 +48,6 @@ const OrderItem = ({ order }) => {
           <p style={{ color: 'red' }}> not delivred </p>
         )}
       </OrderTd>
-      <OrderTd>update</OrderTd>
       <OrderTd>
         <SeeBtn onClick={() => handleClick(id)}>Order Details</SeeBtn>
       </OrderTd>
@@ -56,4 +71,6 @@ export const OrderLine = styled.div`
 
 export const OrderTd = styled.div`
   flex: 2;
+  align-self: center;
+  margin: auto;
 `;

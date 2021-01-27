@@ -1,42 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { authApi, link } from '../../Api/Api';
 import Loading from '../layouts/Loading';
 import { SeeBtn } from '../pages/UserListeIem';
-import { THead, TD } from '../shared/Table';
+import { THead, TDH } from '../shared/Table';
 import OrderDetail from './OrderDetail';
 
 const OrderModal = (props) => {
-  const [details, setDetails] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [id, setId] = useState(props.orderId);
-  const [loading, setLoading] = useState(false);
-  const body = {
-    id,
-  };
-
-  useEffect(() => {
-    // get order detail's
-    async function getOrderDetails() {
-      try {
-        setLoading(true);
-        // const res = await authApi.get(`${link}`, { params: body });
-        setLoading(false);
-        setDetails([
-          {
-            id: 1,
-            name: 'Wpplae azd, azkerlfg ',
-            prix: 5222,
-            thumbnail: 'tv.png',
-            quantity: 5,
-          },
-        ]);
-      } catch (error) {}
-    }
-    getOrderDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const { details, loading } = props;
   if (!props.show) {
     return null;
   } else {
@@ -53,20 +23,21 @@ const OrderModal = (props) => {
             {!loading && details && (
               <div>
                 <THead>
-                  <TD> Image </TD>
-                  <TD> Name </TD>
-                  <TD> prix </TD>
-                  <TD> Quantity </TD>
-                  <TD> Total </TD>
+                  <TDH flex='1'> Image </TDH>
+                  <TDH flex='3'> Name </TDH>
+                  <TDH> prix </TDH>
+                  <TDH> Quantity </TDH>
+                  <TDH> Total </TDH>
                 </THead>
-                {details.map((detail) => (
+                {details.details.map((detail) => (
                   <OrderDetail key={detail.id} detail={detail} />
                 ))}
+                <div> total= {details.total} Dh </div>
               </div>
             )}
           </ModalBody>
           <ModalFooter>
-            <CancleBtn onClick={() => props.onClose()}>Cancle</CancleBtn>
+            <CancleBtn onClick={() => props.onClose()}>Close</CancleBtn>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -89,8 +60,8 @@ const Modal = styled.div`
 `;
 const ModalContent = styled.div`
   max-width: 800px;
-  min-width: 600px;
-  max-height: 80%;
+  min-width: 700px;
+  max-height: 90%;
   overflow: scroll;
   background: #fff;
 `;
