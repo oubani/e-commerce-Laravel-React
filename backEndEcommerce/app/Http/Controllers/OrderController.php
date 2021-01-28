@@ -115,13 +115,11 @@ class OrderController extends Controller
         try {
             $details= [];
             $orderDetails = Order::find($request->get('id'))->details;
-            //return $orderDetails;
             foreach ($orderDetails as $detail) {
             $obj = new \stdClass();
                 $obj->quantity = $detail->quantity;
                 $product = Detail::find($detail->id)->product;
                 $obj->product_id= $product->id;
-                //return $product;
                 $obj->thumbnail= $product->thumbnail;
                 $obj->name= $product->name;
                 $obj->prix= $product->prix;
@@ -134,6 +132,18 @@ class OrderController extends Controller
         }
 
 
+    }
+
+    public function validateOrder(Request $request) {
+        try {
+            $order = Order::find($request->id);
+            $order->status=1;
+            $order->save();
+            return 'Order updated with success';
+
+        } catch(\Exception $ex) {
+            return response()->json('some thing went wronsg',401);
+        }
     }
 
 }

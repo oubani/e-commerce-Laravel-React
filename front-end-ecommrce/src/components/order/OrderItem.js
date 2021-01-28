@@ -4,11 +4,11 @@ import { authApi, link } from '../../Api/Api';
 import { SeeBtn } from '../pages/UserListeIem';
 import OrderModal from './OrderModal';
 
-const OrderItem = ({ order }) => {
+const OrderItem = ({ order, validateOrder }) => {
   const [show, setShow] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [details, setDetails] = useState(null);
-  const { id, address, created_at, status } = order;
+  const { id, address, date, status } = order;
   const [loading, setLoading] = useState(false);
   // HandleClick funcion
   const handleClick = (id) => {
@@ -37,10 +37,13 @@ const OrderItem = ({ order }) => {
         onClose={onClose}
         loading={loading}
         details={details}
+        status={status}
+        orderId={orderId}
+        validateOrder={validateOrder}
       />
       <OrderTd>{id}</OrderTd>
       <OrderTd>{address}</OrderTd>
-      <OrderTd>{created_at}</OrderTd>
+      <OrderTd>{date}</OrderTd>
       <OrderTd>
         {status ? (
           <p style={{ color: 'green' }}> delivred </p>

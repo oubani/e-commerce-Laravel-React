@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Loading from '../layouts/Loading';
 import { SeeBtn } from '../pages/UserListeIem';
-import { THead, TDH } from '../shared/Table';
+import { THead, TBody, TDH, TDB } from '../shared/Table';
 import OrderDetail from './OrderDetail';
 
 const OrderModal = (props) => {
@@ -32,12 +32,28 @@ const OrderModal = (props) => {
                 {details.details.map((detail) => (
                   <OrderDetail key={detail.id} detail={detail} />
                 ))}
-                <div> total= {details.total} Dh </div>
+                <TBody>
+                  <TDB> total: </TDB>
+                  <TDB> {details.total} Dh </TDB>
+                </TBody>
               </div>
             )}
           </ModalBody>
           <ModalFooter>
-            <CancleBtn onClick={() => props.onClose()}>Close</CancleBtn>
+            {!loading ? (
+              <div>
+                {!props.status ? (
+                  <ValideBtn onClick={() => props.validateOrder(orderId)}>
+                    Validate Order
+                  </ValideBtn>
+                ) : (
+                  ''
+                )}
+                <CancleBtn onClick={() => props.onClose()}>Close</CancleBtn>
+              </div>
+            ) : (
+              ''
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -80,9 +96,17 @@ const ModalBody = styled.div`
 const ModalFooter = styled.div`
   padding: 10px;
 `;
+
 const CancleBtn = styled(SeeBtn)`
   background: #fa0a0a;
   color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+`;
+const ValideBtn = styled(SeeBtn)`
+  background: #0fff14;
+  color: #fff;
+  margin-right: 2rem;
   border-radius: 10px;
   font-weight: bold;
 `;
