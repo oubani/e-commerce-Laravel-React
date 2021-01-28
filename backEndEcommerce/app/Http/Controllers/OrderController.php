@@ -89,19 +89,19 @@ class OrderController extends Controller
             return response()->json('you are not authorized',401);
         }
 
-        $orders = Order::query();
+        //$orders = Order::query();
 
         /*if (isset($request->get('ordersType'))) {
              $orders->all();
-
         }
-    */
         if ($request->get('ordersType')!==null) {
             $orders->where('status','=',$request->get('ordersType'));
         }
+        */
 
-        $orders = Order::orderBy('created_at','DESC')
-            ->paginate(10);
+        $orders = Order::SELECT([DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d %h:%m:%s') AS `date`"),
+            DB::raw("id,total,address,status")
+            ])->orderBy('date','DESC')->paginate(10);
 
         /*foreach ($orders as $order) {
             $order->created_at = $order->created_at->format('   m Y');
