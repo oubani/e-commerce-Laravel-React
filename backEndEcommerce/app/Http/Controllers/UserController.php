@@ -64,7 +64,7 @@ class UserController extends Controller
     {
 
 
-        $users = User::where('id','!=',auth()->user()->id)->paginate(4);
+        $users = User::where('id','!=',auth()->user()->id)->paginate(5);
 
         return $users;
     }

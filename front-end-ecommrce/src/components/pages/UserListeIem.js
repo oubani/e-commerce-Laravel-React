@@ -26,7 +26,7 @@ const UserListeIem = ({ user, upgradeUser, downgradeUser }) => {
       <UserTd> {name}</UserTd>
       <UserTd> {email}</UserTd>
       <UserTd>
-        {role === 1 ? <p style={{ color: 'gold' }}>Admin</p> : <p>User</p>}
+        {role === 1 ? <p style={{ color: 'gold' }}>Admin</p> : <p>Client</p>}
       </UserTd>
       <UserTd>
         {role === 0 ? (
