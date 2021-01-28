@@ -12,6 +12,17 @@ export const OrdersPage = () => {
   const [ordersType, setOrdersType] = useState(0);
   const [page, setPage] = useState(1);
 
+  const validateOrder = (id) => {
+    authApi
+      .post(`${link}/validateOrder`, { id })
+      .then(() => {
+        // setOrders()
+      })
+      .catch(() => {
+        console.log('Something went wrong please check again');
+      });
+  };
+
   const body = {
     page,
     ordersType,
