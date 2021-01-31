@@ -21,6 +21,7 @@ import ProductListePage from './components/pages/ProductListePage';
 import { OrdersPage } from './components/pages/OrdersPage';
 import Footer from './components/layouts/Footer';
 import UsersListe from './components/pages/UsersListe';
+import Testing from './components/Testing';
 
 function App() {
   // handle visits
@@ -57,6 +58,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/cart' component={CartPage} />
+          <Route path='/test' component={Testing} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
           <Route path='/product/:id' component={ProductPage} />

@@ -4,11 +4,12 @@ import { authApi, link } from '../../Api/Api';
 import { Product } from '../product/SoldOutProducts';
 import Loading from '../layouts/Loading';
 import Pagination from '../layouts/Pagination/Pagination';
+import { THead, TDH } from '../shared/Table';
 
 const ProductListePage = () => {
   const [productsListe, setProductList] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const body = {
     page: page,
   };
@@ -23,6 +24,7 @@ const ProductListePage = () => {
       setLoading(false);
     }
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   if (loading) {
@@ -39,23 +41,12 @@ const ProductListePage = () => {
             {' '}
             Total Products: {productsListe ? ` ${productsListe.total}` : ' '}
           </h3>
-          <div
-            style={{
-              display: 'flex',
-              marginInline: 'auto',
-              maxWidth: '900px',
-              padding: '10px 0',
-              textAlign: 'center',
-              fontSize: '1.2rem',
-              background: 'var(--main-blue-color)',
-              color: 'var(--main-white-color)',
-            }}
-          >
-            <div style={{ flex: 1 }}>Image</div>
-            <div style={{ flex: 2 }}>Name</div>
-            <div style={{ flex: 2 }}>Stock</div>
-            <div style={{ flex: 2 }}>Update</div>
-          </div>
+          <THead>
+            <TDH style={{ flex: 1 }}>Image</TDH>
+            <TDH style={{ flex: 2 }}>Name</TDH>
+            <TDH style={{ flex: 2 }}>Stock</TDH>
+            <TDH style={{ flex: 2 }}>Update</TDH>
+          </THead>
           <div
             style={{
               marginInline: 'auto',
