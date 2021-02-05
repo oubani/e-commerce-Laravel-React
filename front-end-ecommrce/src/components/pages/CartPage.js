@@ -58,7 +58,7 @@ const CartPage = ({
 
   if (cart.length === 0) {
     return (
-      <h1 style={{ marginTop: '2rem', textAlign: 'center' }}>
+      <h1 style={{ marginTop: '2rem', textAlign: 'center', minHeight: '63vh' }}>
         The cart is empty Start shopping now
       </h1>
     );
@@ -78,6 +78,7 @@ const CartPage = ({
       style={{
         display: 'flex',
         justifyContent: 'center',
+        minHeight: '68vh',
       }}
     >
       <table className='table'>
@@ -134,7 +135,7 @@ const CartPage = ({
         </tbody>
       </table>
       <ToastContainer />
-      {/* <div className='card' style={AddressCard}>
+      {/* <div classN ame='card' style={AddressCard}>
         <h3>Address</h3>
         <textarea
           style={{ margin: '15px auto' }}

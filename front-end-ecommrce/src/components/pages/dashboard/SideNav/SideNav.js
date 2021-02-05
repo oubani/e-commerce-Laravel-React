@@ -7,7 +7,6 @@ export const SideNav = () => {
   const pageName = window.location.pathname.split('/').pop();
 
   const [isAdmin, setIsAdmin] = useState(false);
-  const [scrollValue, setScrollValue] = useState(0);
 
   useEffect(() => {
     setIsAdmin(checkAdmin());
@@ -31,7 +30,6 @@ export const SideNav = () => {
       <div style={{ flex: '1' }}>
         <SideNavContainer>
           <NavMenu>
-            {scrollValue}
             <NavLink
               to='/dashboard'
               active={pageName === 'dashboard' ? true : false}
@@ -56,12 +54,12 @@ export const SideNav = () => {
             >
               Add Product
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to='/promotions'
               active={pageName === 'promotions' ? true : false}
             >
               Promotions
-            </NavLink>
+            </NavLink> */}
             {!isAdmin ? (
               <NavLink
                 to='/myOrders'

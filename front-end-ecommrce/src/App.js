@@ -21,7 +21,6 @@ import ProductListePage from './components/pages/ProductListePage';
 import { OrdersPage } from './components/pages/OrdersPage';
 import Footer from './components/layouts/Footer';
 import UsersListe from './components/pages/UsersListe';
-import Testing from './components/Testing';
 
 function App() {
   // handle visits
